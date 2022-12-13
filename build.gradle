@@ -6,6 +6,7 @@ buildscript {
         moshi_kotlin_version = '1.14.0'
         moshi_converter_version = '2.9.0'
         okHttp_version = '5.0.0-alpha.2'
+        room_version = '2.4.3'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
