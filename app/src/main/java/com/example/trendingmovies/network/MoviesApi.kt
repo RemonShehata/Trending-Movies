@@ -22,6 +22,9 @@ interface MoviesApi {
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(@Path("movie_id") movieId: String): MovieDetails
 
+    @GET("configuration")
+    suspend fun getConfiguration(): Configuration
+
     companion object {
         fun create(): MoviesApi {
             val retrofit = Retrofit.Builder()
