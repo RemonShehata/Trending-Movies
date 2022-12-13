@@ -1,42 +1,40 @@
 package com.example.trendingmovies.network
 
-import com.example.newsapp.BuildConfig
-import com.example.newsapp.di.NewsManager
-import com.example.newsapp.utils.NEWS_API_BASE_URL
-import okhttp3.OkHttpClient
+import com.example.trendingmovies.BuildConfig
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
-interface NewsApi {
 
-    @Headers("X-Api-Key: \${BuildConfig.TM}") // replace with your own Key
+const val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
+
+interface MoviesApi {
+
     @GET("discover/movie")
-    suspend fun getTrendingMovies(): News
+    suspend fun getTrendingMovies(): MoviesResponse
 
-    @Suppress("FunctionParameterNaming")
-    @Headers("X-Api-Key: \${BuildConfig.NEWS_API_KEY}") // replace with your own Key
-    @GET("top-headlines?country=us")
-    suspend fun getEverything(@Query("q") Keywords: String): News
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(@Path("movie_id") movieId: String): MovieDetails
 
     companion object {
-        fun create(): NewsApi {
+        fun create(): MoviesApi {
             val retrofit = Retrofit.Builder()
-                .baseUrl(NEWS_API_BASE_URL)
+                .baseUrl(TMDB_BASE_URL)
                 .addConverterFactory(
-                    MoshiConverterFactory.create(NewsManager.moshi).withNullSerialization()
+                    MoshiConverterFactory.create(createMoshi()).withNullSerialization()
                 )
+
                 .client(createOkHttpClient())
                 .build()
-            return retrofit.create(NewsApi::class.java)
+            return retrofit.create(MoviesApi::class.java)
         }
 
-        @Suppress("MagicNumber")
         private fun createOkHttpClient(): OkHttpClient {
             val builder = OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -49,7 +47,25 @@ interface NewsApi {
                 builder.addInterceptor(httpLoggingInterceptor)
             }
 
+            builder.addInterceptor(apiKeyInterceptor)
             return builder.build()
+        }
+
+        private fun createMoshi(): Moshi {
+            return Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
+        }
+
+        private val apiKeyInterceptor = Interceptor { chain ->
+            var request: Request = chain.request()
+            val url: HttpUrl =
+                request.url.newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+                    .build()
+
+            request = request.newBuilder().url(url).build()
+            chain.proceed(request)
         }
     }
 }
