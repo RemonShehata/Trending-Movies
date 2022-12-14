@@ -1,8 +1,5 @@
 package com.example.trendingmovies
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trendingmovies.database.TrendingMoviesEntity
@@ -17,13 +14,9 @@ class MoviesListViewModel @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val mutableTrendingMoviesState:  MutableState<List<TrendingMoviesEntity>> = mutableStateOf(emptyList())
-    val trendingMoviesState: State<List<TrendingMoviesEntity>> = mutableTrendingMoviesState
-
     fun getAllMovies() {
         viewModelScope.launch(ioDispatcher) {
             val result = repo.getAllMoviesSync()
-            mutableTrendingMoviesState.value = result
         }
     }
 }
