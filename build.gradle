@@ -7,10 +7,12 @@ buildscript {
         moshi_converter_version = '2.9.0'
         okHttp_version = '5.0.0-alpha.2'
         room_version = '2.4.3'
+        hilt_version = '2.44'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
