@@ -1,11 +1,17 @@
 package com.example.trendingmovies.di
 
+import com.example.trendingmovies.MoviesListRepo
+import com.example.trendingmovies.MoviesListRepository
+import com.example.trendingmovies.database.TrendingMoviesDao
+import com.example.trendingmovies.network.MoviesApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -18,5 +24,17 @@ class CommonModule {
         return Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideIODispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
+    }
+
+    @Singleton
+    @Provides
+    fun provideMoviesListRepo(trendingMoviesDao: TrendingMoviesDao, moviesApi: MoviesApi): MoviesListRepo{
+        return MoviesListRepository(trendingMoviesDao, moviesApi)
     }
 }
