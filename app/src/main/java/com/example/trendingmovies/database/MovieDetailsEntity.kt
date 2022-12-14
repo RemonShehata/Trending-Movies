@@ -2,16 +2,18 @@ package com.example.trendingmovies.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class MovieDetailsEntity(
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "adult") val adult: Boolean,
     @ColumnInfo(name = "backdrop_path") val backdropPath: String?,
-    @ColumnInfo(name = "belongs_to_collection") val belongsToCollection: Any?, //TODO: null or object
+//    @ColumnInfo(name = "belongs_to_collection") val belongsToCollection: Any?, //TODO: null or object
     @ColumnInfo(name = "budget") val budget: Int,
     @ColumnInfo(name = "genres") val genres: List<Genre>,
     @ColumnInfo(name = "homepage") val homePage: String?,
-    @ColumnInfo(name = "id") val id: Int,
+
     @ColumnInfo(name = "imdb_id") val imdbId: String?,
     @ColumnInfo(name = "original_language") val originalLanguage: String,
     @ColumnInfo(name = "original_title") val originalTitle: String,
@@ -23,7 +25,7 @@ data class MovieDetailsEntity(
     @ColumnInfo(name = "release_date") val releaseDate: String,
     @ColumnInfo(name = "revenue") val revenue: Int,
     @ColumnInfo(name = "runtime") val runtime: Int?,
-    @ColumnInfo(name = "spoken_languages") val spokenLanguages: List<SpokenLanguage>,
+//    @ColumnInfo(name = "spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     @ColumnInfo(name = "status") val status: Status,
     @ColumnInfo(name = "tagline") val tagline: String?,
     @ColumnInfo(name = "title") val title: String,
