@@ -14,10 +14,10 @@ sealed class FailureReason {
 }
 
 data class MoviesResponse(
-    val page: Int,
-    val results: List<Movie>,
-    val total_results: Int?,
-    val total_pages: Int?
+    @Json(name = "page") val page: Int,
+    @Json(name = "results") val results: List<Movie>,
+    @Json(name = "total_results") val totalResults: Int?,
+    @Json(name = "total_pages") val totalPages: Int?
 )
 
 data class Movie(
