@@ -27,7 +27,7 @@ private fun Movie.convertToEntity(): TrendingMoviesEntity {
         popularity = popularity,
         voteCount = voteCount,
         video = video,
-        voteAverage = voteAverage
+        voteAverage = voteAverage,
     )
 }
 
