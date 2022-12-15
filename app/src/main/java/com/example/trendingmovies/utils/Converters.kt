@@ -1,11 +1,8 @@
 package com.example.trendingmovies.utils
 
 import com.example.trendingmovies.TrendingMoviesDto
-import com.example.trendingmovies.database.ConfigurationEntity
-import com.example.trendingmovies.database.TrendingMoviesEntity
-import com.example.trendingmovies.network.ConfigurationResponse
-import com.example.trendingmovies.network.Movie
-import com.example.trendingmovies.network.MoviesResponse
+import com.example.trendingmovies.database.*
+import com.example.trendingmovies.network.*
 
 fun MoviesResponse.toTrendingMoviesEntityList(): List<TrendingMoviesEntity> {
     val trendingMoviesEntities: MutableList<TrendingMoviesEntity> =
@@ -76,4 +73,84 @@ infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMovies
 fun getFullUrl(posterPath: String, secureBaseUrl: String, posterSizes: List<String>): String {
     val size: String = posterSizes.firstOrNull { it == "w185" } ?: "original"
     return "$secureBaseUrl$size$posterPath"
+}
+
+fun MovieDetailsResponse.toMovieDetailsEntity(): MovieDetailsEntity {
+    val genreList: MutableList<Genre> = mutableListOf()
+    val productionCompaniesList: MutableList<ProductionCompany> = mutableListOf()
+    val productionCountriesList: MutableList<ProductionCountry> = mutableListOf()
+    val spokenLanguagesList: MutableList<SpokenLanguage> = mutableListOf()
+
+    this.genreResponses.forEach { genreList.add(it.toGenre()) }
+    this.productionCompanies.forEach { productionCompaniesList.add(it.toProductionCompany()) }
+    this.productionCountries.forEach { productionCountriesList.add(it.toProductionCompany()) }
+    this.spokenLanguageResponses.forEach { spokenLanguagesList.add(it.toSpokenLanguage()) }
+
+    return MovieDetailsEntity(
+        id = this.id,
+        adult = this.adult,
+        backdropPath = backdropPath,
+        budget = this.budget,
+        genres = genreList,
+        homePage = this.homePage,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        originalTitle = this.originalTitle,
+        overview = this.overview,
+        popularity = this.popularity,
+        posterPath = this.posterPath,
+        productionCompanies = productionCompaniesList,
+        productionCountries = productionCountriesList,
+        releaseDate = this.releaseDate,
+        revenue = this.revenue,
+        runtime = this.runtime,
+        spokenLanguages = spokenLanguagesList,
+        status = this.status.toStatus(),
+        tagline = this.tagline,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount
+    )
+}
+
+private fun StatusResponse.toStatus(): Status {
+    return when (this) {
+        StatusResponse.Rumored -> Status.Rumored
+        StatusResponse.Planned -> Status.Planned
+        StatusResponse.InProduction -> Status.InProduction
+        StatusResponse.PostProduction -> Status.PostProduction
+        StatusResponse.Released -> Status.Released
+        StatusResponse.Canceled -> Status.Canceled
+    }
+}
+
+private fun SpokenLanguageResponse.toSpokenLanguage(): SpokenLanguage {
+    return SpokenLanguage(
+        iso_639_1 = this.iso_639_1,
+        name = this.name
+    )
+}
+
+private fun ProductionCountryResponse.toProductionCompany(): ProductionCountry {
+    return ProductionCountry(
+        iso_3166_1 = this.iso_3166_1,
+        name = this.name
+    )
+}
+
+private fun ProductionCompanyResponse.toProductionCompany(): ProductionCompany {
+    return ProductionCompany(
+        id = this.id,
+        name = this.name,
+        logoPath = this.logoPath,
+        originCountry = this.originCountry
+    )
+}
+
+private fun GenreResponse.toGenre(): Genre {
+    return Genre(
+        id = this.id,
+        name = this.name
+    )
 }
