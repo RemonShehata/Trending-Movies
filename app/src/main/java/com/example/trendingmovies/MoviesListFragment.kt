@@ -5,10 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
+import com.example.trendingmovies.network.MoviesApi
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MoviesListFragment: Fragment() {
+
+    @Inject
+    lateinit var moviesApi: MoviesApi
+
+    @Inject
+    lateinit var moviesDatabase: MoviesDatabase
+
 
     private lateinit var binding: FragmentMoviesListBinding
 
@@ -18,11 +34,33 @@ class MoviesListFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMoviesListBinding.inflate(layoutInflater).apply {
-            button.setOnClickListener {
+//            button.setOnClickListener {
 //                findNavController().navigate()
-            }
+//            }
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val moviesListAdapter = MoviesListAdapter()
+        binding.moviesListRecycler.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = moviesListAdapter
+        }
+
+        lifecycleScope.launch(Dispatchers.IO){
+//            val result = moviesApi.getTrendingMovies()
+//            moviesDatabase.trendingMoviesDao().insertMovies(result.toTrendingMoviesEntityList())
+            val dbResult = moviesDatabase.trendingMoviesDao().getAllMoviesSync()
+
+            withContext(Dispatchers.Main){
+                moviesListAdapter.submitList(dbResult)
+            }
+        }
+
+
     }
 }
