@@ -2,10 +2,7 @@ package com.example.trendingmovies.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.trendingmovies.database.ConfigurationDao
-import com.example.trendingmovies.database.MovieDetailsDao
-import com.example.trendingmovies.database.MoviesDatabase
-import com.example.trendingmovies.database.TrendingMoviesDao
+import com.example.trendingmovies.database.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,6 +39,12 @@ class DatabaseModule {
     @Provides
     fun provideMovieDetailsDao(moviesDatabase: MoviesDatabase): MovieDetailsDao {
         return moviesDatabase.movieDetailsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTrendingMoviesPageDao(moviesDatabase: MoviesDatabase): TrendingMoviesPageDao {
+        return moviesDatabase.trendingMoviesPageDao()
     }
 
     companion object {
