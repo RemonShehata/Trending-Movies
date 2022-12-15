@@ -46,7 +46,6 @@ class TrendingMoviesFragment : Fragment() {
         }
 
         with(trendingTrendingMoviesViewModel) {
-            getAllMovies()
             moviesLiveData.observe(requireActivity()) { movies ->
                 moviesListAdapter.submitList(movies)
             }

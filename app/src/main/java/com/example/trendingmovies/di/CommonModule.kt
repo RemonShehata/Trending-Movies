@@ -4,6 +4,7 @@ import com.example.trendingmovies.*
 import com.example.trendingmovies.database.ConfigurationDao
 import com.example.trendingmovies.database.MovieDetailsDao
 import com.example.trendingmovies.database.TrendingMoviesDao
+import com.example.trendingmovies.database.TrendingMoviesPageDao
 import com.example.trendingmovies.network.MoviesApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -37,9 +38,10 @@ class CommonModule {
     @Provides
     fun provideMoviesListRepo(
         trendingMoviesDao: TrendingMoviesDao,
+        trendingMoviesPageDao: TrendingMoviesPageDao,
         moviesApi: MoviesApi
     ): TrendingMoviesRepo {
-        return TrendingMoviesRepository(trendingMoviesDao, moviesApi)
+        return TrendingMoviesRepository(trendingMoviesDao, trendingMoviesPageDao, moviesApi)
     }
 
     @Singleton

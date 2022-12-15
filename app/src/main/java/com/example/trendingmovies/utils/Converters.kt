@@ -12,6 +12,13 @@ fun MoviesResponse.toTrendingMoviesEntityList(): List<TrendingMoviesEntity> {
     return trendingMoviesEntities
 }
 
+fun MoviesResponse.toTrendingMoviesPageEntity(): TrendingMoviesPageEntity {
+    return TrendingMoviesPageEntity(
+        page = this.page,
+        totalPages = this.totalPages
+    )
+}
+
 private fun Movie.convertToEntity(): TrendingMoviesEntity {
     return TrendingMoviesEntity(
         id = id,
