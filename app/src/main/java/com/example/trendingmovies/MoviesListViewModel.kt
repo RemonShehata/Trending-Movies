@@ -9,13 +9,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesListViewModel @Inject constructor(
-    private val repo: MoviesListRepo,
+    private val moviesListRepo: MoviesListRepo,
+    private val configurationRepo: ConfigurationRepo,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     fun getAllMovies() {
         viewModelScope.launch(ioDispatcher) {
-            val result = repo.getAllMoviesSync()
+            val result = moviesListRepo.getAllMoviesSync()
         }
     }
 }
