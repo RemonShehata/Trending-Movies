@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.trendingmovies.TAG
 import com.example.trendingmovies.databinding.FragmentMovieDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailsFragment: Fragment() {
 
     private val args: MovieDetailsFragmentArgs by navArgs()

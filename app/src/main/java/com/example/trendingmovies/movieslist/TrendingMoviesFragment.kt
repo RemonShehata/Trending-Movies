@@ -1,4 +1,4 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.movieslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MoviesListFragment : Fragment() {
+class TrendingMoviesFragment : Fragment() {
 
     @Inject
     lateinit var moviesApi: MoviesApi
@@ -55,7 +55,9 @@ class MoviesListFragment : Fragment() {
 
     private val onItemClicked: (movieId: String) -> Unit = { movieId ->
         findNavController().navigate(
-            MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(movieId)
+            TrendingMoviesFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(
+                movieId
+            )
         )
     }
 }

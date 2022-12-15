@@ -1,4 +1,4 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.movieslist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.trendingmovies.R
+import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 
 class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
