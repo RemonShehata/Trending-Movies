@@ -75,6 +75,21 @@ object GenreConverter {
     @JvmStatic
     fun stringToGenres(genres: String): List<Genre> =
         trendingMoviesAdapter.fromJson(genres).orEmpty()
+}
 
+object StringListConverter {
+    private val parameterizedType =
+        Types.newParameterizedType(List::class.java, ConfigurationEntity::class.java)
+    private val listJsonAdapter =
+        moshi.adapter<List<String>>(parameterizedType)
 
+    @TypeConverter
+    @JvmStatic
+    fun stringListToString(stringList: List<String>): String =
+        listJsonAdapter.toJson(stringList)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToStringList(string: String): List<String> =
+        listJsonAdapter.fromJson(string).orEmpty()
 }
