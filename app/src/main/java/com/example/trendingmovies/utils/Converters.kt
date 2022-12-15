@@ -1,6 +1,8 @@
 package com.example.trendingmovies.utils
 
+import com.example.trendingmovies.database.ConfigurationEntity
 import com.example.trendingmovies.database.TrendingMoviesEntity
+import com.example.trendingmovies.network.ConfigurationResponse
 import com.example.trendingmovies.network.Movie
 import com.example.trendingmovies.network.MoviesResponse
 
@@ -27,5 +29,18 @@ private fun Movie.convertToEntity(): TrendingMoviesEntity {
         voteCount = voteCount,
         video = video,
         voteAverage = voteAverage
+    )
+}
+
+fun ConfigurationResponse.toConfigurationEntity(): ConfigurationEntity {
+    return ConfigurationEntity(
+        baseUrl = this.images.baseUrl,
+        secureBaseUrl = this.images.secureBaseUrl,
+        backdropSizes = this.images.backdropSizes,
+        logoSizes = this.images.logoSizes,
+        posterSizes = this.images.posterSizes,
+        profileSizes = this.images.profileSizes,
+        stillSizes = this.images.stillSizes,
+        changeKeys = this.changeKeys
     )
 }

@@ -13,5 +13,5 @@ interface MoviesApi {
     suspend fun getMovieDetails(@Path("movie_id") movieId: String): MovieDetails
 
     @GET("configuration")
-    suspend fun getConfiguration(): Configuration
+    suspend fun getConfiguration(): ConfigurationResponse
 }

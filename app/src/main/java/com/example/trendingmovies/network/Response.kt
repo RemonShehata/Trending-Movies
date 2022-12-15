@@ -155,7 +155,7 @@ enum class Status(val value: String) {
     // TODO: associate with map here
 }
 
-data class Configuration(
+data class ConfigurationResponse(
     @Json(name = "images") val images: Image,
     @Json(name = "change_keys") val changeKeys: List<String>,
 )
