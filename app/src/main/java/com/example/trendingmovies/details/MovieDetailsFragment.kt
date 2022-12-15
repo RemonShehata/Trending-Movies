@@ -43,7 +43,7 @@ class MovieDetailsFragment : Fragment() {
             movieDetailsLiveData.observe(viewLifecycleOwner) { movie ->
                 binding.movieTitletextView.text = movie.title
                 binding.overviewTextView.text = movie.overview
-
+                Log.d(TAG, "onViewCreated: ${movie.posterUrl}")
                 Glide
                     .with(requireContext())
                     .load(movie.posterUrl)
