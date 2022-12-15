@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesListViewModel @Inject constructor(
+class TrendingMoviesViewModel @Inject constructor(
     private val moviesListRepo: MoviesListRepo,
     private val configurationRepo: ConfigurationRepo,
     private val ioDispatcher: CoroutineDispatcher

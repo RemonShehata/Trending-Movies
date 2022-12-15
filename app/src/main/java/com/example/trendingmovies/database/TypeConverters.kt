@@ -9,38 +9,23 @@ private val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-//object GenreIdsConverter {
-//    private val genreIdsType =
-//        Types.newParameterizedType(IntArray::class.java, TrendingMoviesEntity::class.java)
-//    private val genreIdsAdapter =
-//        moshi.adapter<IntArray>(genreIdsType)
-//
-//    @TypeConverter
-//    @JvmStatic
-//    fun genreIdsToString(genreIds: IntArray): String =
-//        genreIdsAdapter.toJson(genreIds)
-//
-//    @TypeConverter
-//    @JvmStatic
-//    fun stringToGenreIds(genreIds: String): IntArray? =
-//        genreIdsAdapter.fromJson(genreIds)
-//}
 
-object GenreIdsConverter {
-    private val genreIdsType =
+
+object IntListConverter {
+    private val parameterizedType =
         Types.newParameterizedType(List::class.java, Int::class.javaObjectType)
-    private val genreIdsAdapter =
-        moshi.adapter<List<Int>>(genreIdsType)
+    private val listJsonAdapter =
+        moshi.adapter<List<Int>>(parameterizedType)
 
     @TypeConverter
     @JvmStatic
-    fun genreIdsToString(genreIds: List<Int>): String =
-        genreIdsAdapter.toJson(genreIds)
+    fun genreIdsToString(intList: List<Int>): String =
+        listJsonAdapter.toJson(intList)
 
     @TypeConverter
     @JvmStatic
-    fun stringToGenreIds(genreIds: String): List<Int> =
-        genreIdsAdapter.fromJson(genreIds).orEmpty()
+    fun stringToGenreIds(json: String): List<Int> =
+        listJsonAdapter.fromJson(json).orEmpty()
 }
 
 object TrendingMoviesConverter {
@@ -90,6 +75,6 @@ object StringListConverter {
 
     @TypeConverter
     @JvmStatic
-    fun stringToStringList(string: String): List<String> =
-        listJsonAdapter.fromJson(string).orEmpty()
+    fun stringToStringList(json: String): List<String> =
+        listJsonAdapter.fromJson(json).orEmpty()
 }

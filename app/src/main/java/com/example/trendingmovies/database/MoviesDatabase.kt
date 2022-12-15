@@ -11,7 +11,7 @@ import com.example.trendingmovies.ConfigurationDao
 )
 @TypeConverters(
     TrendingMoviesConverter::class,
-    GenreIdsConverter::class,
+    IntListConverter::class,
     GenreConverter::class,
     StringListConverter::class
 )

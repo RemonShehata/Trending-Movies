@@ -27,7 +27,7 @@ class MoviesListFragment: Fragment() {
     @Inject
     lateinit var moviesDatabase: MoviesDatabase
 
-    val trendingMoviesListViewModel: MoviesListViewModel by viewModels()
+    val trendingTrendingMoviesViewModel: TrendingMoviesViewModel by viewModels()
 
     private lateinit var binding: FragmentMoviesListBinding
 
@@ -48,7 +48,7 @@ class MoviesListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(trendingMoviesListViewModel) {
+        with(trendingTrendingMoviesViewModel) {
             getAllMovies()
             moviesLiveData.observe(requireActivity()){
                 Log.d(TAG, "onViewCreated: $it")
