@@ -2,6 +2,7 @@ package com.example.trendingmovies.di
 
 import com.example.trendingmovies.*
 import com.example.trendingmovies.database.ConfigurationDao
+import com.example.trendingmovies.database.MovieDetailsDao
 import com.example.trendingmovies.database.TrendingMoviesDao
 import com.example.trendingmovies.network.MoviesApi
 import com.squareup.moshi.Moshi
@@ -48,5 +49,14 @@ class CommonModule {
         moviesApi: MoviesApi
     ): ConfigurationRepo {
         return ConfigurationRepository(moviesApi, configurationDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMovieDetailsRepo(
+        movieDetailsDao: MovieDetailsDao,
+        moviesApi: MoviesApi
+    ): MovieDetailsRepo {
+        return MovieDetailsRepository(moviesApi, movieDetailsDao)
     }
 }
