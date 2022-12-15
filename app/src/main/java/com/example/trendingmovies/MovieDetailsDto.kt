@@ -1,5 +1,7 @@
 package com.example.trendingmovies
 
+import com.example.trendingmovies.database.Status
+
 data class MovieDetailsDto(
 //    val id: Int,
 //    val adult: Boolean,
@@ -16,13 +18,13 @@ data class MovieDetailsDto(
 //    val productionCompanies: List<ProductionCompany>,
 //    val productionCountries: List<ProductionCountry>,
     val releaseDate: String,
-    val revenue: Long,
+    val revenue: String,
     val runtime: Int?,
     val spokenLanguages: List<String>,
-    val status: String,
+    val status: Status,
     val tagline: String?,
     val title: String,
 //    val video: Boolean,
-    val voteAverage: Double,
-    val voteCount: Int
+    val voteAverage: String,
+    val voteCount: String
 )

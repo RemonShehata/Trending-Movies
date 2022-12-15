@@ -89,14 +89,14 @@ infix fun ConfigurationEntity.toMovieDetailsDto(movie: MovieDetailsEntity): Movi
         popularity = movie.popularity,
         posterUrl = posterUrl,
         releaseDate = movie.releaseDate,
-        revenue = movie.revenue,
+        revenue = movie.revenue.toString(),
         runtime = movie.runtime,
         spokenLanguages = movie.spokenLanguages.map { it.name },
-        status = movie.status.value,
+        status = movie.status,
         tagline = movie.tagline,
         title = movie.title,
-        voteAverage = movie.voteAverage,
-        voteCount = movie.voteCount
+        voteAverage = movie.voteAverage.toString(),
+        voteCount = movie.voteCount.toString()
     )
 }
 

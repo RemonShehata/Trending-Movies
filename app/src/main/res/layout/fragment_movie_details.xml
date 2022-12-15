@@ -39,18 +39,19 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:maxLines="2"
-            android:text="TextView"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
+            app:layout_constraintTop_toTopOf="@+id/cardView"
+            tools:text="Black Adam" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:tint="@color/teal_700"
             android:id="@+id/rateImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:tint="@color/teal_700"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/movieTitletextView"
             app:srcCompat="@drawable/ic_star_rate" />
@@ -76,19 +77,6 @@
             tools:text="114 min" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/overviewTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/genre1TextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -96,6 +84,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:padding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/rateImageView"
@@ -106,9 +96,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:padding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/genre1TextView"
@@ -119,13 +111,138 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:padding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/genre2TextView"
             tools:text="Action" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/calendarImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:tint="@color/teal_700"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/genre3TextView"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/releaseDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/calendarImageView"
+            app:layout_constraintStart_toEndOf="@+id/calendarImageView"
+            app:layout_constraintTop_toTopOf="@+id/calendarImageView"
+            tools:text="14-12-2022" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/voteCountImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:tint="@color/teal_700"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/calendarImageView"
+            app:srcCompat="@drawable/ic_thumbs_up_down" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/votCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/voteCountImageView"
+            app:layout_constraintStart_toEndOf="@+id/voteCountImageView"
+            app:layout_constraintTop_toTopOf="@+id/voteCountImageView"
+            tools:text="67000" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/statusImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:tint="@color/teal_700"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/voteCountImageView"
+            app:srcCompat="@drawable/ic_check_circle" />
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/statusImageView"
+            app:layout_constraintTop_toTopOf="@+id/statusImageView"
+            tools:text="Released" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/overviewTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            tools:text="Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world." />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/languageTextViewLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Language"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overviewTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/languageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="English"
+            app:layout_constraintStart_toEndOf="@+id/languageTextViewLabel"
+            app:layout_constraintTop_toBottomOf="@+id/overviewTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/revenueTextViewLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Revenue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/languageTextViewLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/revenueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$500,0000"
+            app:layout_constraintBottom_toBottomOf="@+id/revenueTextViewLabel"
+            app:layout_constraintStart_toStartOf="@+id/languageTextView"
+            app:layout_constraintTop_toTopOf="@+id/revenueTextViewLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
