@@ -3,7 +3,6 @@ package com.example.trendingmovies.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.trendingmovies.network.MovieDetails
 
 @Database(
     entities = [TrendingMoviesEntity::class, MovieDetailsEntity::class, ConfigurationEntity::class],

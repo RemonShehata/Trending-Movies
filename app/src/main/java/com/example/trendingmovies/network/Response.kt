@@ -110,7 +110,7 @@ data class MovieDetailsResponse(
     @Json(name = "production_companies") val productionCompanies: List<ProductionCompanyResponse>,
     @Json(name = "production_countries") val productionCountries: List<ProductionCountryResponse>,
     @Json(name = "release_date") val releaseDate: String,
-    @Json(name = "revenue") val revenue: Int,
+    @Json(name = "revenue") val revenue: Long,
     @Json(name = "runtime") val runtime: Int?,
     @Json(name = "spoken_languages") val spokenLanguageResponses: List<SpokenLanguageResponse>,
     @Json(name = "status") val status: StatusResponse,

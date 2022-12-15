@@ -22,7 +22,7 @@ data class MovieDetailsEntity(
     @ColumnInfo(name = "production_companies") val productionCompanies: List<ProductionCompany>,
     @ColumnInfo(name = "production_countries") val productionCountries: List<ProductionCountry>,
     @ColumnInfo(name = "release_date") val releaseDate: String,
-    @ColumnInfo(name = "revenue") val revenue: Int,
+    @ColumnInfo(name = "revenue") val revenue: Long,
     @ColumnInfo(name = "runtime") val runtime: Int?,
     @ColumnInfo(name = "spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     @ColumnInfo(name = "status") val status: Status,

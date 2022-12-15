@@ -47,7 +47,7 @@ object TrendingMoviesConverter {
 
 object GenreConverter {
     private val trendingMoviesType =
-        Types.newParameterizedType(List::class.java, TrendingMoviesEntity::class.java)
+        Types.newParameterizedType(List::class.java, Genre::class.javaObjectType)
     private val trendingMoviesAdapter =
         moshi.adapter<List<Genre>>(trendingMoviesType)
 
@@ -81,7 +81,7 @@ object StringListConverter {
 
 object ProductionCompanyListConverter {
     private val parameterizedType =
-        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+        Types.newParameterizedType(List::class.java, ProductionCompany::class.javaObjectType)
     private val listJsonAdapter =
         moshi.adapter<List<ProductionCompany>>(parameterizedType)
 
@@ -98,7 +98,7 @@ object ProductionCompanyListConverter {
 
 object ProductionCountryListConverter {
     private val parameterizedType =
-        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+        Types.newParameterizedType(List::class.java, ProductionCountry::class.javaObjectType)
     private val listJsonAdapter =
         moshi.adapter<List<ProductionCountry>>(parameterizedType)
 
@@ -115,7 +115,7 @@ object ProductionCountryListConverter {
 
 object SpokenLanguageListConverter {
     private val parameterizedType =
-        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+        Types.newParameterizedType(List::class.java, SpokenLanguage::class.javaObjectType)
     private val listJsonAdapter =
         moshi.adapter<List<SpokenLanguage>>(parameterizedType)
 
