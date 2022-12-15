@@ -79,7 +79,7 @@ object GenreConverter {
 
 object StringListConverter {
     private val parameterizedType =
-        Types.newParameterizedType(List::class.java, ConfigurationEntity::class.java)
+        Types.newParameterizedType(List::class.java, String::class.javaObjectType)
     private val listJsonAdapter =
         moshi.adapter<List<String>>(parameterizedType)
 

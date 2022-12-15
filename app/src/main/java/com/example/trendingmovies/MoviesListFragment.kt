@@ -1,10 +1,12 @@
 package com.example.trendingmovies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.trendingmovies.database.MoviesDatabase
@@ -25,6 +27,7 @@ class MoviesListFragment: Fragment() {
     @Inject
     lateinit var moviesDatabase: MoviesDatabase
 
+    val trendingMoviesListViewModel: MoviesListViewModel by viewModels()
 
     private lateinit var binding: FragmentMoviesListBinding
 
@@ -44,6 +47,13 @@ class MoviesListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        with(trendingMoviesListViewModel) {
+            getAllMovies()
+            moviesLiveData.observe(requireActivity()){
+                Log.d(TAG, "onViewCreated: $it")
+            }
+        }
 
         val moviesListAdapter = MoviesListAdapter()
         binding.moviesListRecycler.apply {
