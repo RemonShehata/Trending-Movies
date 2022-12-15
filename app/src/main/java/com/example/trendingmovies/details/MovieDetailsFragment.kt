@@ -71,9 +71,6 @@ class MovieDetailsFragment : Fragment() {
                     Status.InProduction, Status.PostProduction, Status.Released ->
                         resources.getDrawable(R.drawable.ic_check_circle)
                     Status.Canceled -> resources.getDrawable(R.drawable.ic_cancel)
-                    else -> {
-                        throw IllegalStateException("Invalid movie status")
-                    }
                 }
 
                 binding.statusImageView.setImageDrawable(statusImage)
