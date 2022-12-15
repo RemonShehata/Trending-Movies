@@ -13,5 +13,5 @@ interface ConfigurationDao {
     suspend fun insertConfiguration(configuration: ConfigurationEntity): Long
 
     @Query("SELECT * FROM ConfigurationEntity")
-    suspend fun getConfigurationsSync(): ConfigurationEntity
+    suspend fun getConfigurationsSync(): ConfigurationEntity?
 }

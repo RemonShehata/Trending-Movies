@@ -1,4 +1,7 @@
 package com.example.trendingmovies
 
-interface ConfigurationRep {
+import com.example.trendingmovies.database.ConfigurationEntity
+
+interface ConfigurationRepo {
+    suspend fun getConfiguration(): ConfigurationEntity
 }
