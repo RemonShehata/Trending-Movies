@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
@@ -31,19 +32,14 @@ class MoviesListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMoviesListBinding.inflate(layoutInflater).apply {
-//            button.setOnClickListener {
-//                findNavController().navigate()
-//            }
-        }
-
+        binding = FragmentMoviesListBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val moviesListAdapter = MoviesListAdapter()
+        val moviesListAdapter = MoviesListAdapter(onItemClicked)
         binding.moviesListRecycler.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = moviesListAdapter
@@ -55,5 +51,11 @@ class MoviesListFragment : Fragment() {
                 moviesListAdapter.submitList(movies)
             }
         }
+    }
+
+    private val onItemClicked: (movieId: String) -> Unit = { movieId ->
+        findNavController().navigate(
+            MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(movieId)
+        )
     }
 }

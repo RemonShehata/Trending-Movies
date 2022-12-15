@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 
-class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
+class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
+    RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
 
     private val differ: AsyncListDiffer<TrendingMoviesDto> =
         AsyncListDiffer(this, DIFF_CALLBACK)
@@ -28,7 +29,9 @@ class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolde
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val currentItem = differ.currentList[position]
-
+        holder.binding.root.setOnClickListener {
+            onItemClicked(currentItem.id)
+        }
         with(holder.binding) {
             movieTitleTextView.text = currentItem.title
 

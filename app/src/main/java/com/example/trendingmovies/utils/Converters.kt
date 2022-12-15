@@ -58,11 +58,12 @@ infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMovies
         }
 
         val trendingMoviesDto = TrendingMoviesDto(
-            movie.title,
-            movie.releaseDate,
-            movie.voteCount.toString(),
-            movie.voteAverage.toString(),
-            posterUrl
+            id = movie.id.toString(),
+            title = movie.title,
+            releaseDate = movie.releaseDate,
+            voteCount = movie.voteCount.toString(),
+            rating = movie.voteAverage.toString(),
+            posterUrl = posterUrl
         )
 
         trendingMoviesDtoList.add(trendingMoviesDto)
