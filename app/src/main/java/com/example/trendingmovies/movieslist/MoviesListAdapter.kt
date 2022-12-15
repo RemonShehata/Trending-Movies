@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
 import com.example.trendingmovies.R
 import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
+import com.example.trendingmovies.di.MoviesGlideModule
 
 class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
     RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
@@ -44,8 +45,8 @@ class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
             rateTextView.text = currentItem.rating
 
             differ.currentList[position].posterUrl?.let { url ->
-                Glide
-                    .with(context)
+                MoviesGlideModule()
+                with(context)
                     .load(url)
                     .centerCrop()
                     .placeholder(R.drawable.black_adam)

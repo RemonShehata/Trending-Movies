@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.example.trendingmovies.R
 import com.example.trendingmovies.TAG
 import com.example.trendingmovies.databinding.FragmentMovieDetailsBinding
+import com.example.trendingmovies.di.MoviesGlideModule
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,8 +44,8 @@ class MovieDetailsFragment : Fragment() {
                 binding.movieTitletextView.text = movie.title
                 binding.overviewTextView.text = movie.overview
                 Log.d(TAG, "onViewCreated: ${movie.posterUrl}")
-                Glide
-                    .with(requireContext())
+                MoviesGlideModule()
+                com.bumptech.glide.Glide.with(requireContext())
                     .load(movie.posterUrl)
                     .centerCrop()
                     .placeholder(R.drawable.black_adam)
