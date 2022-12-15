@@ -1,5 +1,6 @@
 package com.example.trendingmovies.utils
 
+import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.database.ConfigurationEntity
 import com.example.trendingmovies.database.TrendingMoviesEntity
 import com.example.trendingmovies.network.ConfigurationResponse
@@ -43,4 +44,35 @@ fun ConfigurationResponse.toConfigurationEntity(): ConfigurationEntity {
         stillSizes = this.images.stillSizes,
         changeKeys = this.changeKeys
     )
+}
+
+infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMoviesEntity>): List<TrendingMoviesDto> {
+    val trendingMoviesDtoList: MutableList<TrendingMoviesDto> = mutableListOf()
+    movies.forEach { movie ->
+        val posterUrl: String? = movie.posterPath?.let {
+            getFullUrl(
+                movie.posterPath,
+                this.secureBaseUrl,
+                this.posterSizes
+            )
+        }
+
+        val trendingMoviesDto = TrendingMoviesDto(
+            movie.title,
+            movie.releaseDate,
+            movie.voteCount.toString(),
+            movie.voteAverage.toString(),
+            posterUrl
+        )
+
+        trendingMoviesDtoList.add(trendingMoviesDto)
+
+    }
+
+    return trendingMoviesDtoList
+}
+
+fun getFullUrl(posterPath: String, secureBaseUrl: String, posterSizes: List<String>): String {
+    val size: String = posterSizes.firstOrNull { it == "w185" } ?: "original"
+    return "$secureBaseUrl$size$posterPath"
 }
