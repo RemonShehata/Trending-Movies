@@ -11,7 +11,7 @@ import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 
 class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
 
-    private val differ: AsyncListDiffer<TrendingMoviesEntity> =
+    private val differ: AsyncListDiffer<TrendingMoviesDto> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
     private lateinit var context: Context
@@ -54,25 +54,25 @@ class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolde
         context = recyclerView.context
     }
 
-    fun submitList(trendingMoviesEntityList: List<TrendingMoviesEntity>) {
-        differ.submitList(trendingMoviesEntityList)
+    fun submitList(trendingMovies: List<TrendingMoviesDto>) {
+        differ.submitList(trendingMovies)
     }
 
     inner class MoviesViewHolder(val binding: MovieItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrendingMoviesEntity>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrendingMoviesDto>() {
             override fun areItemsTheSame(
-                oldItem: TrendingMoviesEntity,
-                newItem: TrendingMoviesEntity
+                oldItem: TrendingMoviesDto,
+                newItem: TrendingMoviesDto
             ): Boolean =
                 oldItem === newItem // this is data class
 
 
             override fun areContentsTheSame(
-                oldItem: TrendingMoviesEntity,
-                newItem: TrendingMoviesEntity
+                oldItem: TrendingMoviesDto,
+                newItem: TrendingMoviesDto
             ): Boolean = oldItem == newItem
         }
     }
