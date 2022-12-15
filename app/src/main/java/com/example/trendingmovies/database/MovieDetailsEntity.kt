@@ -13,19 +13,18 @@ data class MovieDetailsEntity(
     @ColumnInfo(name = "budget") val budget: Int,
     @ColumnInfo(name = "genres") val genres: List<Genre>,
     @ColumnInfo(name = "homepage") val homePage: String?,
-
     @ColumnInfo(name = "imdb_id") val imdbId: String?,
     @ColumnInfo(name = "original_language") val originalLanguage: String,
     @ColumnInfo(name = "original_title") val originalTitle: String,
     @ColumnInfo(name = "overview") val overview: String,
     @ColumnInfo(name = "popularity") val popularity: Double,
     @ColumnInfo(name = "poster_path") val posterPath: String?,
-//    @ColumnInfo(name = "production_companies") val productionCompanies: List<ProductionCompany>,
-//    @ColumnInfo(name = "production_countries") val productionCountries: List<ProductionCountry>,
+    @ColumnInfo(name = "production_companies") val productionCompanies: List<ProductionCompany>,
+    @ColumnInfo(name = "production_countries") val productionCountries: List<ProductionCountry>,
     @ColumnInfo(name = "release_date") val releaseDate: String,
     @ColumnInfo(name = "revenue") val revenue: Int,
     @ColumnInfo(name = "runtime") val runtime: Int?,
-//    @ColumnInfo(name = "spoken_languages") val spokenLanguages: List<SpokenLanguage>,
+    @ColumnInfo(name = "spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     @ColumnInfo(name = "status") val status: Status,
     @ColumnInfo(name = "tagline") val tagline: String?,
     @ColumnInfo(name = "title") val title: String,
@@ -54,3 +53,15 @@ enum class Status(val value: String) {
 
     // TODO: associate with map here
 }
+
+data class ProductionCompany(
+    val id: Int,
+    val name: String,
+    val logoPath: String?,
+    val originCountry: String,
+)
+
+data class ProductionCountry(
+    val iso_3166_1: String,
+    val name: String,
+)

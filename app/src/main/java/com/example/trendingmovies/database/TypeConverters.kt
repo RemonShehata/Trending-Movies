@@ -78,3 +78,54 @@ object StringListConverter {
     fun stringToStringList(json: String): List<String> =
         listJsonAdapter.fromJson(json).orEmpty()
 }
+
+object ProductionCompanyListConverter {
+    private val parameterizedType =
+        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+    private val listJsonAdapter =
+        moshi.adapter<List<ProductionCompany>>(parameterizedType)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringListToString(stringList: List<ProductionCompany>): String =
+        listJsonAdapter.toJson(stringList)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToStringList(json: String): List<ProductionCompany> =
+        listJsonAdapter.fromJson(json).orEmpty()
+}
+
+object ProductionCountryListConverter {
+    private val parameterizedType =
+        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+    private val listJsonAdapter =
+        moshi.adapter<List<ProductionCountry>>(parameterizedType)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringListToString(stringList: List<ProductionCountry>): String =
+        listJsonAdapter.toJson(stringList)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToStringList(json: String): List<ProductionCountry> =
+        listJsonAdapter.fromJson(json).orEmpty()
+}
+
+object SpokenLanguageListConverter {
+    private val parameterizedType =
+        Types.newParameterizedType(List::class.java, MovieDetailsEntity::class.java)
+    private val listJsonAdapter =
+        moshi.adapter<List<SpokenLanguage>>(parameterizedType)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringListToString(stringList: List<SpokenLanguage>): String =
+        listJsonAdapter.toJson(stringList)
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToStringList(json: String): List<SpokenLanguage> =
+        listJsonAdapter.fromJson(json).orEmpty()
+}
