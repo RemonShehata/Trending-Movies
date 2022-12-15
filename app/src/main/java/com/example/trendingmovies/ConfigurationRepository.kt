@@ -1,5 +1,6 @@
 package com.example.trendingmovies
 
+import com.example.trendingmovies.database.ConfigurationDao
 import com.example.trendingmovies.database.ConfigurationEntity
 import com.example.trendingmovies.network.MoviesApi
 import com.example.trendingmovies.utils.toConfigurationEntity

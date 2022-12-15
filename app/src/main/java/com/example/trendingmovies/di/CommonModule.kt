@@ -1,6 +1,7 @@
 package com.example.trendingmovies.di
 
 import com.example.trendingmovies.*
+import com.example.trendingmovies.database.ConfigurationDao
 import com.example.trendingmovies.database.TrendingMoviesDao
 import com.example.trendingmovies.network.MoviesApi
 import com.squareup.moshi.Moshi
