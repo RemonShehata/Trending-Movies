@@ -38,8 +38,8 @@ class CommonModule {
     fun provideMoviesListRepo(
         trendingMoviesDao: TrendingMoviesDao,
         moviesApi: MoviesApi
-    ): MoviesListRepo {
-        return MoviesListRepository(trendingMoviesDao, moviesApi)
+    ): TrendingMoviesRepo {
+        return TrendingMoviesRepository(trendingMoviesDao, moviesApi)
     }
 
     @Singleton

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrendingMoviesDao {
@@ -16,4 +17,7 @@ interface TrendingMoviesDao {
 
     @Query("SELECT * FROM TrendingMoviesEntity")
     suspend fun getAllMoviesSync(): List<TrendingMoviesEntity>
+
+    @Query("SELECT * FROM TrendingMoviesEntity")
+    fun getAllMoviesFlow(): Flow<List<TrendingMoviesEntity>>
 }
