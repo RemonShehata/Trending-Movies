@@ -1,5 +1,6 @@
 package com.example.trendingmovies.utils
 
+import com.example.trendingmovies.MovieDetailsDto
 import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.database.*
 import com.example.trendingmovies.network.*
@@ -68,6 +69,35 @@ infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMovies
     }
 
     return trendingMoviesDtoList
+}
+
+infix fun ConfigurationEntity.toMovieDetailsDto(movie: MovieDetailsEntity): MovieDetailsDto {
+    val posterUrl: String? = movie.posterPath?.let {
+        getFullUrl(
+            movie.posterPath,
+            this.secureBaseUrl,
+            this.posterSizes
+        )
+    }
+
+    return MovieDetailsDto(
+        budget = movie.budget,
+        genres = movie.genres.map { it.name },
+        originalLanguage = movie.originalLanguage,
+        originalTitle = movie.originalTitle,
+        overview = movie.overview,
+        popularity = movie.popularity,
+        posterUrl = posterUrl,
+        releaseDate = movie.releaseDate,
+        revenue = movie.revenue,
+        runtime = movie.runtime,
+        spokenLanguages = movie.spokenLanguages.map { it.name },
+        status = movie.status.value,
+        tagline = movie.tagline,
+        title = movie.title,
+        voteAverage = movie.voteAverage,
+        voteCount = movie.voteCount
+    )
 }
 
 fun getFullUrl(posterPath: String, secureBaseUrl: String, posterSizes: List<String>): String {
