@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trendingmovies.database.TrendingMoviesEntity
+import com.bumptech.glide.Glide
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 
 class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
@@ -27,24 +27,27 @@ class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolde
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.binding.movieTitleTextView.text =
-            differ.currentList[position].title
+        val currentItem = differ.currentList[position]
 
-        holder.binding.releaseDateTextView.text =
-            differ.currentList[position].releaseDate
+        with(holder.binding) {
+            movieTitleTextView.text = currentItem.title
 
-        holder.binding.voteCountTextView.text =
-            differ.currentList[position].voteCount.toString()
+            releaseDateTextView.text = currentItem.releaseDate
 
-//
-//        differ.currentList[position].urlToImage?.let { url ->
-//            Glide
-//                .with(context)
-//                .load(url)
-//                .centerCrop()
-//                .placeholder(R.drawable.placeholder_image_svg)
-//                .into(holder.binding.image)
-//        }
+            voteCountTextView.text = currentItem.voteCount
+
+            rateTextView.text = currentItem.rating
+
+            differ.currentList[position].posterUrl?.let { url ->
+                Glide
+                    .with(context)
+                    .load(url)
+                    .centerCrop()
+                    .placeholder(R.drawable.black_adam)
+                    .into(holder.binding.posterImageView)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int = differ.currentList.size
