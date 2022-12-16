@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trendingmovies.State
 import com.example.trendingmovies.TAG
 import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
@@ -63,12 +64,12 @@ class TrendingMoviesFragment : Fragment() {
             moviesLiveData.observe(requireActivity()) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {
-                    is TrendingResult.Error -> TODO()
-                    TrendingResult.Loading -> {
+                    is State.Error -> TODO()
+                    State.Loading -> {
                         Log.d(TAG, "onViewCreated: loading")
                     }
-                    is TrendingResult.Success -> {
-                        moviesListAdapter.setItems(result.movies)
+                    is State.Success -> {
+                        moviesListAdapter.setItems(result.data)
                     }
                 }
             }

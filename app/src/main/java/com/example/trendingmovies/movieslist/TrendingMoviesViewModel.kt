@@ -5,14 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.trendingmovies.ConfigurationRepo
-import com.example.trendingmovies.TAG
-import com.example.trendingmovies.TrendingMoviesRepo
-import com.example.trendingmovies.TrendingMoviesDto
+import com.example.trendingmovies.*
 import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,11 +19,13 @@ class TrendingMoviesViewModel @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val moviesMutableLiveData: MutableLiveData<TrendingResult> = MutableLiveData()
-    val moviesLiveData: LiveData<TrendingResult> = moviesMutableLiveData
+    private val moviesMutableLiveData: MutableLiveData<State<List<TrendingMoviesDto>>> =
+        MutableLiveData()
+
+    val moviesLiveData: LiveData<State<List<TrendingMoviesDto>>> = moviesMutableLiveData
 
     fun getNextPageData() {
-        moviesMutableLiveData.value = TrendingResult.Loading
+        moviesMutableLiveData.value = State.Loading
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "getNextPageData in viewModel ")
             trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
@@ -36,7 +34,7 @@ class TrendingMoviesViewModel @Inject constructor(
 
     init {
         Log.d(TAG, "viewModel: init")
-        moviesMutableLiveData.value = TrendingResult.Loading
+        moviesMutableLiveData.value = State.Loading
 
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
@@ -44,7 +42,7 @@ class TrendingMoviesViewModel @Inject constructor(
                 val configurationResult = configurationRepo.getConfiguration()
 
                 val movies = configurationResult toTrendingMovieDtoList moviesList
-                moviesMutableLiveData.postValue(TrendingResult.Success(movies))
+                moviesMutableLiveData.postValue(State.Success(movies))
             }
         }
 
@@ -56,13 +54,3 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 }
 
-sealed class TrendingResult {
-    object Loading : TrendingResult()
-    data class Success(val movies: List<TrendingMoviesDto>) : TrendingResult()
-    data class Error(val errorType: ErrorType): TrendingResult()
-}
-
-sealed class ErrorType{
-    object NoInternet: ErrorType()
-    object ReachedEndOfList: ErrorType()
-}
