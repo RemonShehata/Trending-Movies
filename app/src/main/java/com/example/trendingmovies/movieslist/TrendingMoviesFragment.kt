@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trendingmovies.ErrorType
 import com.example.trendingmovies.State
 import com.example.trendingmovies.TAG
 import com.example.trendingmovies.database.MoviesDatabase
@@ -64,10 +66,25 @@ class TrendingMoviesFragment : Fragment() {
             moviesLiveData.observe(requireActivity()) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {
-                    is State.Error -> TODO()
+                    is State.Error -> {
+                        when (result.errorType) {
+                            ErrorType.NoInternet -> {
+                                Toast.makeText(requireContext(), "No Internet!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                            ErrorType.ReachedEndOfList -> TODO()
+                            ErrorType.UnknownError -> {
+                                Toast.makeText(requireContext(), "No Internet!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    }
+
                     State.Loading -> {
                         Log.d(TAG, "onViewCreated: loading")
                     }
+
                     is State.Success -> {
                         moviesListAdapter.setItems(result.data)
                     }

@@ -10,6 +10,7 @@ import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,17 +40,29 @@ class TrendingMoviesViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
                 Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
-                val configurationResult = configurationRepo.getConfiguration()
-
-                val movies = configurationResult toTrendingMovieDtoList moviesList
-                moviesMutableLiveData.postValue(State.Success(movies))
+                try {
+                    val configurationResult = configurationRepo.getConfiguration()
+                    val movies = configurationResult toTrendingMovieDtoList moviesList
+                    moviesMutableLiveData.postValue(State.Success(movies))
+                } catch (unknownHostException: UnknownHostException) {
+                    Log.d(TAG, "caught exception in collect")
+                    moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+                } catch (exception: Exception) {
+                    moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+                }
             }
         }
 
 
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "viewModel init: getting movies from api")
-            trendingMoviesRepo.getAllMoviesSync()
+            try {
+                trendingMoviesRepo.getAllMoviesSync()
+            } catch (unknownHostException: UnknownHostException) {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+            } catch (exception: Exception) {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            }
         }
     }
 }

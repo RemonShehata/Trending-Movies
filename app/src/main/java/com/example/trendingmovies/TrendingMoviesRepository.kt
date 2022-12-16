@@ -4,11 +4,11 @@ import android.util.Log
 import com.example.trendingmovies.database.TrendingMoviesDao
 import com.example.trendingmovies.database.TrendingMoviesEntity
 import com.example.trendingmovies.database.TrendingMoviesPageDao
-import com.example.trendingmovies.database.TrendingMoviesPageEntity
 import com.example.trendingmovies.network.MoviesApi
 import com.example.trendingmovies.utils.toTrendingMoviesEntityList
 import com.example.trendingmovies.utils.toTrendingMoviesPageEntity
 import kotlinx.coroutines.flow.Flow
+import java.net.UnknownHostException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,7 +46,7 @@ class TrendingMoviesRepository @Inject constructor(
         Log.d(TAG, "getMoviesForPage: currentPage: $currentPage")
         Log.d(TAG, "getMoviesForPage: totalPages: ${pageData.totalPages}")
         Log.d(TAG, "getMoviesForPage:============")
-        if (pageData.totalPages != null && currentPage < pageData.totalPages){
+        if (pageData.totalPages != null && currentPage < pageData.totalPages) {
             // we didn't reach the end yet, get the next page
             val result = moviesApi.getTrendingMovies(page = ++currentPage)
             Log.d(TAG, "getMoviesForPage: after")
