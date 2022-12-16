@@ -21,5 +21,6 @@ data class TrendingMoviesEntity(
     @ColumnInfo(name = "vote_count") val voteCount: Int,
     @ColumnInfo(name = "video") val video: Boolean,
     @ColumnInfo(name = "vote_average") val voteAverage: Double,
+    // store when the movie was inserted to maintain order
     @ColumnInfo(name = "timestamp_millis") val timestampMillis: Long
 )

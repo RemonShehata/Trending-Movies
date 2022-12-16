@@ -35,6 +35,7 @@ private fun Movie.convertToEntity(): TrendingMoviesEntity {
         voteCount = voteCount,
         video = video,
         voteAverage = voteAverage,
+        System.currentTimeMillis()
     )
 }
 

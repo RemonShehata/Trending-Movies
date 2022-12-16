@@ -15,9 +15,9 @@ interface TrendingMoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(moviesEntity: List<TrendingMoviesEntity>) //TODO: Do we need long return here?
 
-    @Query("SELECT * FROM TrendingMoviesEntity")
+    @Query("SELECT * FROM TrendingMoviesEntity ORDER BY timestamp_millis ASC")
     suspend fun getAllMoviesSync(): List<TrendingMoviesEntity>
 
-    @Query("SELECT * FROM TrendingMoviesEntity")
+    @Query("SELECT * FROM TrendingMoviesEntity ORDER BY timestamp_millis ASC")
     fun getAllMoviesFlow(): Flow<List<TrendingMoviesEntity>>
 }
