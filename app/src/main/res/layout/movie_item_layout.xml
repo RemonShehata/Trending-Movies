@@ -1,95 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:layout_marginEnd="8dp"
-    android:background="@android:color/transparent"
-    android:elevation="16dp"
-    app:cardCornerRadius="16dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_margin="4dp"
+    android:layout_marginEnd="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_shape"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:text="8.3"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:elevation="16dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/posterImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:maxHeight="100dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/black_adam" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/movieTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="The Shawshank Redemption"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/releaseDateTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/releaseDateimageView" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/posterImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/black_adam" />
 
-        <ImageView
-            android:id="@+id/releaseDateimageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_calendar" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movieTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="The Shawshank Redemption"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/releaseDateTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/releaseDateimageView" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/releaseDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15-7-2010"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseDateimageView"
-            app:layout_constraintStart_toEndOf="@+id/releaseDateimageView"
-            app:layout_constraintTop_toTopOf="@+id/releaseDateimageView" />
+            <ImageView
+                android:id="@+id/releaseDateimageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_calendar" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/rateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_shape"
-            android:gravity="center"
-            android:text="8.3"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/posterImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/posterImageView" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/releaseDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="15-7-2010"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/releaseDateimageView"
+                app:layout_constraintStart_toEndOf="@+id/releaseDateimageView"
+                app:layout_constraintTop_toTopOf="@+id/releaseDateimageView" />
 
-        <ImageView
-            android:id="@+id/voteCountImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseDateimageView"
-            app:layout_constraintStart_toEndOf="@+id/releaseDateTextView"
-            app:srcCompat="@drawable/ic_thumbs_up_down" />
+            <ImageView
+                android:id="@+id/voteCountImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/releaseDateTextView"
+                app:srcCompat="@drawable/ic_thumbs_up_down" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/voteCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2719"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/voteCountImageView"
-            app:layout_constraintStart_toEndOf="@+id/voteCountImageView"
-            app:layout_constraintTop_toTopOf="@+id/voteCountImageView" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/voteCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="2719"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/voteCountImageView"
+                app:layout_constraintStart_toEndOf="@+id/voteCountImageView"
+                app:layout_constraintTop_toTopOf="@+id/voteCountImageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
