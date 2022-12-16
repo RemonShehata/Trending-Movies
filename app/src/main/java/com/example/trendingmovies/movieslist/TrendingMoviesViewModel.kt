@@ -12,6 +12,7 @@ import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,10 +25,19 @@ class TrendingMoviesViewModel @Inject constructor(
 
     private val moviesMutableLiveData: MutableLiveData<List<TrendingMoviesDto>> = MutableLiveData()
     val moviesLiveData: LiveData<List<TrendingMoviesDto>> = moviesMutableLiveData
-    
+
+    fun getNextPageData() {
+        viewModelScope.launch(ioDispatcher) {
+            Log.d(TAG, "getNextPageData in viewModel ")
+            trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
+        }
+    }
+
     init {
+        Log.d(TAG, "viewModel: init")
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
+                Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
                 val configurationResult = configurationRepo.getConfiguration()
 
                 val movies = configurationResult toTrendingMovieDtoList moviesList

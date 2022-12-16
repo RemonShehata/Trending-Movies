@@ -3,8 +3,6 @@ package com.example.trendingmovies.movieslist
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.with
 import com.example.trendingmovies.R
@@ -12,11 +10,12 @@ import com.example.trendingmovies.TrendingMoviesDto
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 import com.example.trendingmovies.di.MoviesGlideModule
 
-class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
+// Diff utils doesn't work with adding new data, it move the scroll position to the top.
+class MoviesListAdapter(
+    private val onItemClicked: (movieId: String) -> Unit,
+    private var list: List<TrendingMoviesDto>
+) :
     RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder>() {
-
-    private val differ: AsyncListDiffer<TrendingMoviesDto> =
-        AsyncListDiffer(this, DIFF_CALLBACK)
 
     private lateinit var context: Context
 
@@ -31,7 +30,7 @@ class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        val currentItem = differ.currentList[position]
+        val currentItem = list[position]
         holder.binding.root.setOnClickListener {
             onItemClicked(currentItem.id)
         }
@@ -44,7 +43,7 @@ class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
 
             rateTextView.text = currentItem.rating
 
-            differ.currentList[position].posterUrl?.let { url ->
+            currentItem.posterUrl?.let { url ->
                 MoviesGlideModule()
                 with(context)
                     .load(url)
@@ -56,33 +55,19 @@ class MoviesListAdapter(private val onItemClicked: (movieId: String) -> Unit) :
 
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = list.size
+
+    fun setItems(newList: List<TrendingMoviesDto>) {
+        val oldSize = list.size
+        this.list = newList
+        notifyItemRangeChanged(oldSize, newList.size)
+    }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         context = recyclerView.context
     }
 
-    fun submitList(trendingMovies: List<TrendingMoviesDto>) {
-        differ.submitList(trendingMovies)
-    }
-
     inner class MoviesViewHolder(val binding: MovieItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrendingMoviesDto>() {
-            override fun areItemsTheSame(
-                oldItem: TrendingMoviesDto,
-                newItem: TrendingMoviesDto
-            ): Boolean =
-                oldItem === newItem // this is data class
-
-
-            override fun areContentsTheSame(
-                oldItem: TrendingMoviesDto,
-                newItem: TrendingMoviesDto
-            ): Boolean = oldItem == newItem
-        }
-    }
 }

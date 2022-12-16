@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class TrendingMoviesEntity(
-    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id") val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "auto_id") val autoId: Int = 0,
+    @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "poster_path") val posterPath: String?,
     @ColumnInfo(name = "adult") val adult: Boolean,
     @ColumnInfo(name = "overview")

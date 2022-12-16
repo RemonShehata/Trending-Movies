@@ -1,6 +1,7 @@
 package com.example.trendingmovies.movieslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.trendingmovies.TAG
 import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
 import com.example.trendingmovies.network.MoviesApi
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class TrendingMoviesFragment : Fragment() {
@@ -32,14 +36,24 @@ class TrendingMoviesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMoviesListBinding.inflate(layoutInflater)
+        binding = FragmentMoviesListBinding.inflate(layoutInflater).apply {
+            moviesListRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!recyclerView.canScrollVertically(1)) {
+                        Log.d(TAG, "onScrollStateChanged: end of scroll")
+                        trendingTrendingMoviesViewModel.getNextPageData()
+                    }
+                }
+            })
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val moviesListAdapter = MoviesListAdapter(onItemClicked)
+        Log.d(TAG, "onViewCreated: ")
+        val moviesListAdapter = MoviesListAdapter(onItemClicked, emptyList())
         binding.moviesListRecycler.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = moviesListAdapter
@@ -47,7 +61,8 @@ class TrendingMoviesFragment : Fragment() {
 
         with(trendingTrendingMoviesViewModel) {
             moviesLiveData.observe(requireActivity()) { movies ->
-                moviesListAdapter.submitList(movies)
+                Log.d(TAG, "onViewCreated: size = ${movies.size}")
+                moviesListAdapter.setItems(movies)
             }
         }
     }
