@@ -23,10 +23,11 @@ class TrendingMoviesViewModel @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val moviesMutableLiveData: MutableLiveData<List<TrendingMoviesDto>> = MutableLiveData()
-    val moviesLiveData: LiveData<List<TrendingMoviesDto>> = moviesMutableLiveData
+    private val moviesMutableLiveData: MutableLiveData<TrendingResult> = MutableLiveData()
+    val moviesLiveData: LiveData<TrendingResult> = moviesMutableLiveData
 
     fun getNextPageData() {
+        moviesMutableLiveData.value = TrendingResult.Loading
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "getNextPageData in viewModel ")
             trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
@@ -35,13 +36,15 @@ class TrendingMoviesViewModel @Inject constructor(
 
     init {
         Log.d(TAG, "viewModel: init")
+        moviesMutableLiveData.value = TrendingResult.Loading
+
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
                 Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
                 val configurationResult = configurationRepo.getConfiguration()
 
                 val movies = configurationResult toTrendingMovieDtoList moviesList
-                moviesMutableLiveData.postValue(movies)
+                moviesMutableLiveData.postValue(TrendingResult.Success(movies))
             }
         }
 
@@ -51,4 +54,15 @@ class TrendingMoviesViewModel @Inject constructor(
             trendingMoviesRepo.getAllMoviesSync()
         }
     }
+}
+
+sealed class TrendingResult {
+    object Loading : TrendingResult()
+    data class Success(val movies: List<TrendingMoviesDto>) : TrendingResult()
+    data class Error(val errorType: ErrorType): TrendingResult()
+}
+
+sealed class ErrorType{
+    object NoInternet: ErrorType()
+    object ReachedEndOfList: ErrorType()
 }

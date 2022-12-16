@@ -60,9 +60,17 @@ class TrendingMoviesFragment : Fragment() {
         }
 
         with(trendingTrendingMoviesViewModel) {
-            moviesLiveData.observe(requireActivity()) { movies ->
-                Log.d(TAG, "onViewCreated: size = ${movies.size}")
-                moviesListAdapter.setItems(movies)
+            moviesLiveData.observe(requireActivity()) { result ->
+                Log.d(TAG, "onViewCreated: result = $result")
+                when (result) {
+                    is TrendingResult.Error -> TODO()
+                    TrendingResult.Loading -> {
+                        Log.d(TAG, "onViewCreated: loading")
+                    }
+                    is TrendingResult.Success -> {
+                        moviesListAdapter.setItems(result.movies)
+                    }
+                }
             }
         }
     }
