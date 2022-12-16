@@ -83,7 +83,7 @@ class MovieDetailsFragment : Fragment() {
                 com.bumptech.glide.Glide.with(requireContext())
                     .load(movie.posterUrl)
                     .centerCrop()
-                    .placeholder(R.drawable.black_adam)
+                    .placeholder(R.drawable.placeholder_loading)
                     .into(binding.moviePosterImageView)
 
             }

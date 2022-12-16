@@ -43,7 +43,7 @@ class MoviesListAdapter(
                 with(context)
                     .load(url)
                     .centerCrop()
-                    .placeholder(R.drawable.black_adam)
+                    .placeholder(R.drawable.placeholder_loading)
                     .into(holder.binding.posterImageView)
             }
         }

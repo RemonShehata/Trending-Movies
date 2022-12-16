@@ -46,7 +46,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/black_adam" />
+                tools:srcCompat="@drawable/placeholder_loading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
