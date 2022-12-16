@@ -35,11 +35,6 @@ class MoviesListAdapter(
             onItemClicked(currentItem.id)
         }
         with(holder.binding) {
-            movieTitleTextView.text = currentItem.title
-
-            releaseDateTextView.text = currentItem.releaseDate
-
-            voteCountTextView.text = currentItem.voteCount
 
             rateTextView.text = currentItem.rating
 
