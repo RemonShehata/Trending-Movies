@@ -25,6 +25,9 @@ class TrendingMoviesViewModel @Inject constructor(
 
     val moviesLiveData: LiveData<State<List<TrendingMoviesDto>>> = moviesMutableLiveData
 
+    private val isOnlineMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
+    val isOnlineLiveData: LiveData<Boolean> = isOnlineMutableLiveData
     fun getNextPageData() {
         moviesMutableLiveData.value = State.Loading
         viewModelScope.launch(ioDispatcher) {
@@ -36,6 +39,10 @@ class TrendingMoviesViewModel @Inject constructor(
     init {
         Log.d(TAG, "viewModel: init")
         moviesMutableLiveData.value = State.Loading
+        isOnlineMutableLiveData.value = when (networkStateMonitor.getNetworkState()) {
+            NetworkState.Connected -> true
+            NetworkState.Disconnected -> false
+        }
 
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
