@@ -1,16 +1,19 @@
 package com.example.trendingmovies.di
 
+import android.content.Context
 import com.example.trendingmovies.*
 import com.example.trendingmovies.database.ConfigurationDao
 import com.example.trendingmovies.database.MovieDetailsDao
 import com.example.trendingmovies.database.TrendingMoviesDao
 import com.example.trendingmovies.database.TrendingMoviesPageDao
 import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.utils.NetworkStateMonitor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -60,5 +63,11 @@ class CommonModule {
         moviesApi: MoviesApi
     ): MovieDetailsRepo {
         return MovieDetailsRepository(moviesApi, movieDetailsDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkStateMonitor(@ApplicationContext applicationContext: Context): NetworkStateMonitor {
+        return NetworkStateMonitor(applicationContext)
     }
 }
