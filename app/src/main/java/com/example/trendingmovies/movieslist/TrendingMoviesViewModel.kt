@@ -86,11 +86,14 @@ class TrendingMoviesViewModel @Inject constructor(
                 Log.d(TAG, "networkState: $state")
                 Log.d(TAG, "viewModel networkstate: getting movies from api")
                 when (state) {
-                    NetworkState.Connected -> isOnlineMutableLiveData.postValue(true)
+                    NetworkState.Connected -> {
+                        trendingMoviesRepo.getMoviesForPage()
+                        isOnlineMutableLiveData.postValue(true)
+                    }
                     NetworkState.Disconnected -> isOnlineMutableLiveData.postValue(false)
                 }
 
-                getAllMovies()
+
             }
         }
 
