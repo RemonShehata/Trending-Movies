@@ -44,7 +44,7 @@ class TrendingMoviesViewModel @Inject constructor(
                 trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
             } catch (unknownHostException: UnknownHostException) {
                 Log.d(TAG, "caught exception in collect")
-                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternetForNextPage))
             } catch (exception: Exception) {
                 moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
             }

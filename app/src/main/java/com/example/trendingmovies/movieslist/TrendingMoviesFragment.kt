@@ -52,9 +52,6 @@ class TrendingMoviesFragment : Fragment() {
                 }
             })
 
-            noInternet.retryButton.setOnClickListener {
-
-            }
         }
         return binding.root
     }
@@ -83,9 +80,14 @@ class TrendingMoviesFragment : Fragment() {
                                 binding.moviesListRecycler.visibility = View.GONE
                             }
 
+                            ErrorType.NoInternetForNextPage -> {
+                                Toast.makeText(requireContext(), "NoInternetForNextPage", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
                             ErrorType.ReachedEndOfList -> TODO()
                             ErrorType.UnknownError -> {
-                                Toast.makeText(requireContext(), "No Internet!", Toast.LENGTH_SHORT)
+                                Toast.makeText(requireContext(), "Unkown error!", Toast.LENGTH_SHORT)
                                     .show()
                             }
                         }

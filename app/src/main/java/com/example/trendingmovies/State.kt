@@ -8,6 +8,7 @@ sealed class State<out T> {
 
 sealed class ErrorType {
     object NoInternet : ErrorType()
+    object NoInternetForNextPage : ErrorType()
     object ReachedEndOfList : ErrorType()
     object UnknownError: ErrorType()
 }
