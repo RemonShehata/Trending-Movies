@@ -68,7 +68,7 @@ class TrendingMoviesFragment : Fragment() {
         }
 
         with(trendingTrendingMoviesViewModel) {
-            moviesLiveData.observe(requireActivity()) { result ->
+            moviesLiveData.observe(viewLifecycleOwner) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {
                     is State.Error -> {
