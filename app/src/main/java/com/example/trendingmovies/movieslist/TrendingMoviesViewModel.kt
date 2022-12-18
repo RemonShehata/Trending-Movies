@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trendingmovies.*
+import com.example.trendingmovies.utils.NetworkState
+import com.example.trendingmovies.utils.NetworkStateMonitor
 import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -63,13 +65,31 @@ class TrendingMoviesViewModel @Inject constructor(
 
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "viewModel init: getting movies from api")
-            try {
-                trendingMoviesRepo.getAllMoviesSync()
-            } catch (unknownHostException: UnknownHostException) {
-                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-            } catch (exception: Exception) {
-                moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            getAllMovies()
+        }
+
+        viewModelScope.launch(ioDispatcher) {
+            networkStateMonitor.networkStateFlow.collect { state ->
+                Log.d(TAG, "networkState: $state")
+                Log.d(TAG, "viewModel networkstate: getting movies from api")
+                when (state) {
+                    NetworkState.Connected -> isOnlineMutableLiveData.postValue(true)
+                    NetworkState.Disconnected -> isOnlineMutableLiveData.postValue(false)
+                }
+
+                getAllMovies()
             }
+        }
+
+    }
+
+    private suspend fun getAllMovies() {
+        try {
+            trendingMoviesRepo.getAllMoviesSync()
+        } catch (unknownHostException: UnknownHostException) {
+            moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+        } catch (exception: Exception) {
+            moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
         }
     }
 }

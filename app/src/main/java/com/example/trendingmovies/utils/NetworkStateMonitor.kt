@@ -46,7 +46,7 @@ class NetworkStateMonitor(private val applicationContext: Context) {
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
     }
 
-    private fun getNetworkState(): NetworkState {
+    fun getNetworkState(): NetworkState {
         val conMgr =
             applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = conMgr.activeNetworkInfo
