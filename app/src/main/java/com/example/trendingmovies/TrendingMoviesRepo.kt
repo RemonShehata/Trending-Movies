@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface TrendingMoviesRepo {
     suspend fun getAllMoviesSync()
     fun getAllMoviesFlow(): Flow<List<TrendingMoviesEntity>>
-    suspend fun getMoviesForPage(): Boolean
+    suspend fun getMoviesForPage()
 }

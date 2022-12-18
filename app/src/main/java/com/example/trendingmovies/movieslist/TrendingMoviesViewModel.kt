@@ -40,7 +40,14 @@ class TrendingMoviesViewModel @Inject constructor(
         moviesMutableLiveData.value = State.Loading
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "getNextPageData in viewModel ")
-            trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
+            try {
+                trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
+            } catch (unknownHostException: UnknownHostException) {
+                Log.d(TAG, "caught exception in collect")
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+            } catch (exception: Exception) {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            }
         }
     }
 

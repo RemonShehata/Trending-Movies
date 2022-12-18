@@ -37,7 +37,7 @@ class TrendingMoviesRepository @Inject constructor(
         return trendingMoviesDao.getAllMoviesFlow()
     }
 
-    override suspend fun getMoviesForPage(): Boolean {
+    override suspend fun getMoviesForPage() {
         Log.d("Zoza", "getMoviesForPage: in Repo")
         val pageData = trendingMoviesPageDao.getPageSync()
         var currentPage = pageData.page
@@ -56,10 +56,10 @@ class TrendingMoviesRepository @Inject constructor(
             Log.d(TAG, "getMoviesForPage: ${result.page}")
             trendingMoviesPageDao.insertPage(result.toTrendingMoviesPageEntity())
             Log.d(TAG, "getMoviesForPage: ${result.toTrendingMoviesPageEntity()}")
-            return true
+//            return true
         } else {
             Log.d(TAG, "getMoviesForPage: inside else")
-            return false
+//            return false
         }
     }
 }
