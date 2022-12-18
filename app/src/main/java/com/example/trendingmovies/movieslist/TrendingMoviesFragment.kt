@@ -17,6 +17,7 @@ import com.example.trendingmovies.TAG
 import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
 import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.utils.NetworkStateMonitor
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -68,6 +69,10 @@ class TrendingMoviesFragment : Fragment() {
         }
 
         with(trendingTrendingMoviesViewModel) {
+            mediatorLiveData.observe(viewLifecycleOwner){
+                Log.d(TAG, "mediatorLiveData: state = ${it.first}")
+                Log.d(TAG, "mediatorLiveData: isOnline = ${it.second}")
+            }
             moviesLiveData.observe(viewLifecycleOwner) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {

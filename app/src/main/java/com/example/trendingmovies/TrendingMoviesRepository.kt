@@ -8,7 +8,6 @@ import com.example.trendingmovies.network.MoviesApi
 import com.example.trendingmovies.utils.toTrendingMoviesEntityList
 import com.example.trendingmovies.utils.toTrendingMoviesPageEntity
 import kotlinx.coroutines.flow.Flow
-import java.net.UnknownHostException
 import javax.inject.Inject
 import javax.inject.Singleton
 

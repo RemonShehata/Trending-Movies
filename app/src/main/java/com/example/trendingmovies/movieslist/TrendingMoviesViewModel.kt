@@ -2,6 +2,7 @@ package com.example.trendingmovies.movieslist
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class TrendingMoviesViewModel @Inject constructor(
     private val trendingMoviesRepo: TrendingMoviesRepo,
     private val configurationRepo: ConfigurationRepo,
+    private val networkStateMonitor: NetworkStateMonitor,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -30,6 +32,10 @@ class TrendingMoviesViewModel @Inject constructor(
     private val isOnlineMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     val isOnlineLiveData: LiveData<Boolean> = isOnlineMutableLiveData
+
+
+    val mediatorLiveData = MediatorLiveData<Pair<State<List<TrendingMoviesDto>>?, Boolean?>>()
+
     fun getNextPageData() {
         moviesMutableLiveData.value = State.Loading
         viewModelScope.launch(ioDispatcher) {
@@ -81,6 +87,13 @@ class TrendingMoviesViewModel @Inject constructor(
             }
         }
 
+        mediatorLiveData.addSource(moviesLiveData) {
+            mediatorLiveData.value = Pair(it, isOnlineLiveData.value)
+        }
+
+        mediatorLiveData.addSource(isOnlineLiveData) {
+            mediatorLiveData.value = Pair(moviesLiveData.value, it)
+        }
     }
 
     private suspend fun getAllMovies() {
