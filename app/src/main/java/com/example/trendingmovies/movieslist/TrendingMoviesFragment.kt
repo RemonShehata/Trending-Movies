@@ -40,6 +40,7 @@ class TrendingMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMoviesListBinding.inflate(layoutInflater).apply {
+
             moviesListRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -49,6 +50,10 @@ class TrendingMoviesFragment : Fragment() {
                     }
                 }
             })
+
+            noInternet.retryButton.setOnClickListener {
+
+            }
         }
         return binding.root
     }
@@ -69,6 +74,7 @@ class TrendingMoviesFragment : Fragment() {
                     is State.Error -> {
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
+                                binding.noInternet.root.visibility = View.VISIBLE
                                 Toast.makeText(requireContext(), "No Internet!", Toast.LENGTH_SHORT)
                                     .show()
                             }
