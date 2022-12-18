@@ -75,8 +75,7 @@ class TrendingMoviesFragment : Fragment() {
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
                                 binding.noInternet.root.visibility = View.VISIBLE
-                                Toast.makeText(requireContext(), "No Internet!", Toast.LENGTH_SHORT)
-                                    .show()
+                                binding.moviesListRecycler.visibility = View.GONE
                             }
 
                             ErrorType.ReachedEndOfList -> TODO()
@@ -89,9 +88,12 @@ class TrendingMoviesFragment : Fragment() {
 
                     State.Loading -> {
                         Log.d(TAG, "onViewCreated: loading")
+                        binding.noInternet.root.visibility = View.GONE
                     }
 
                     is State.Success -> {
+                        binding.noInternet.root.visibility = View.GONE
+                        binding.moviesListRecycler.visibility = View.VISIBLE
                         moviesListAdapter.setItems(result.data)
                     }
                 }

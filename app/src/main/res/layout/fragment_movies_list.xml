@@ -7,6 +7,7 @@
     tools:context=".movieslist.TrendingMoviesFragment">
 
     <include
+        android:visibility="gone"
         android:id="@+id/noInternet"
         layout="@layout/no_internet_layout"
         android:layout_width="0dp"
