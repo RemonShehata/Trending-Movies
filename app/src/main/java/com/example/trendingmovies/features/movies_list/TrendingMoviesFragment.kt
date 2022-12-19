@@ -1,4 +1,4 @@
-package com.example.trendingmovies.movieslist
+package com.example.trendingmovies.features.movies_list
 
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trendingmovies.ErrorType
 import com.example.trendingmovies.State
-import com.example.trendingmovies.TAG
+import com.example.trendingmovies.core.TAG
 import com.example.trendingmovies.database.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
 import com.example.trendingmovies.network.MoviesApi
-import com.example.trendingmovies.utils.NetworkStateMonitor
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

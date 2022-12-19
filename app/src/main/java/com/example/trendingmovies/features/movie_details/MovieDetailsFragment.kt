@@ -1,6 +1,5 @@
-package com.example.trendingmovies.details
+package com.example.trendingmovies.features.movie_details
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.trendingmovies.R
-import com.example.trendingmovies.TAG
+import com.example.trendingmovies.core.TAG
 import com.example.trendingmovies.database.Status
 import com.example.trendingmovies.databinding.FragmentMovieDetailsBinding
 import com.example.trendingmovies.di.MoviesGlideModule

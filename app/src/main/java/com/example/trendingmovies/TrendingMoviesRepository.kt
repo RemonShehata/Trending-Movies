@@ -1,6 +1,7 @@
 package com.example.trendingmovies
 
 import android.util.Log
+import com.example.trendingmovies.core.TAG
 import com.example.trendingmovies.database.TrendingMoviesDao
 import com.example.trendingmovies.database.TrendingMoviesEntity
 import com.example.trendingmovies.database.TrendingMoviesPageDao

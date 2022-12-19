@@ -1,4 +1,4 @@
-package com.example.trendingmovies.details
+package com.example.trendingmovies.features.movie_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

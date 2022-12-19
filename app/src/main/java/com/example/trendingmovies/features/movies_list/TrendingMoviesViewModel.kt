@@ -1,4 +1,4 @@
-package com.example.trendingmovies.movieslist
+package com.example.trendingmovies.features.movies_list
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trendingmovies.*
+import com.example.trendingmovies.core.TAG
 import com.example.trendingmovies.utils.NetworkState
 import com.example.trendingmovies.utils.NetworkStateMonitor
 import com.example.trendingmovies.utils.toTrendingMovieDtoList

@@ -1,4 +1,4 @@
-package com.example.trendingmovies.movieslist
+package com.example.trendingmovies.features.movies_list
 
 import android.content.Context
 import android.view.LayoutInflater
