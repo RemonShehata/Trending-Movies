@@ -95,9 +95,9 @@ class NetworkModule {
     }
 
     companion object {
-        private const val CONNECT_TIMEOUT_SECONDS = 15L
-        private const val READ_TIMEOUT_SECONDS = 15L
-        private const val WRITE_TIMEOUT_SECONDS = 15L
+        private const val CONNECT_TIMEOUT_SECONDS = 5L
+        private const val READ_TIMEOUT_SECONDS = 5L
+        private const val WRITE_TIMEOUT_SECONDS = 5L
         private const val API_KEY_PARAM = "api_key"
         private const val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
     }
