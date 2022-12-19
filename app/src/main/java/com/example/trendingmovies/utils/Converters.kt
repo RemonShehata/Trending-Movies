@@ -14,7 +14,7 @@ fun MoviesResponse.toTrendingMoviesEntityList(): List<TrendingMoviesEntity> {
 
 fun MoviesResponse.toTrendingMoviesPageEntity(): TrendingMoviesPageEntity {
     return TrendingMoviesPageEntity(
-        page = this.page,
+        currentPage = this.page,
         totalPages = this.totalPages
     )
 }

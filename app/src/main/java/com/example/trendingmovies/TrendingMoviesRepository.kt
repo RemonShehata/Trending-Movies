@@ -26,21 +26,20 @@ class TrendingMoviesRepository @Inject constructor(
         }
     }
 
-
-//    override suspend fun getAllMoviesSync(){
-//        val result = moviesApi.getTrendingMovies()
-//        trendingMoviesDao.insertMovies(result.toTrendingMoviesEntityList())
-//        trendingMoviesPageDao.insertPage(result.toTrendingMoviesPageEntity())
-//    }
-
     override fun getAllMoviesFlow(): Flow<List<TrendingMoviesEntity>> {
         return trendingMoviesDao.getAllMoviesFlow()
     }
 
     override suspend fun getMoviesForPage() {
-        Log.d("Zoza", "getMoviesForPage: in Repo")
-        val pageData = trendingMoviesPageDao.getPageSync()
-        var currentPage = pageData.page
+        // if we don't have data for page then we are trying to get the first page after the device
+        // was offline then we got connectivity but
+        val pageData = trendingMoviesPageDao.getPageSync() ?: kotlin.run {
+            getAllMoviesSync()
+            trendingMoviesPageDao.getPageSync()!! // we are sure it can't be null here,
+            // the previous
+        }
+
+        var currentPage = pageData.currentPage ?: 1
         Log.d(TAG, "getMoviesForPage: before")
         Log.d(TAG, "getMoviesForPage: currentPage: $currentPage")
         Log.d(TAG, "getMoviesForPage: totalPages: ${pageData.totalPages}")
@@ -56,10 +55,8 @@ class TrendingMoviesRepository @Inject constructor(
             Log.d(TAG, "getMoviesForPage: ${result.page}")
             trendingMoviesPageDao.insertPage(result.toTrendingMoviesPageEntity())
             Log.d(TAG, "getMoviesForPage: ${result.toTrendingMoviesPageEntity()}")
-//            return true
         } else {
             Log.d(TAG, "getMoviesForPage: inside else")
-//            return false
         }
     }
 }

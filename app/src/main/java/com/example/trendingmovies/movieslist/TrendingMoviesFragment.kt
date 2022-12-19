@@ -69,6 +69,10 @@ class TrendingMoviesFragment : Fragment() {
             mediatorLiveData.observe(viewLifecycleOwner){
                 Log.d(TAG, "mediatorLiveData: state = ${it.first}")
                 Log.d(TAG, "mediatorLiveData: isOnline = ${it.second}")
+                if (it.first is State.Success && it.second == false) {
+                    Toast.makeText(requireContext(), "You are viewing cached data", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
             moviesLiveData.observe(viewLifecycleOwner) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")

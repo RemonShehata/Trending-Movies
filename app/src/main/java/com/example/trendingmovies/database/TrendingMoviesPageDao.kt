@@ -13,7 +13,7 @@ interface TrendingMoviesPageDao {
     suspend fun insertPage(trendingMoviesPageEntity: TrendingMoviesPageEntity): Long
 
     @Query("SELECT * FROM TrendingMoviesPageEntity")
-    suspend fun getPageSync(): TrendingMoviesPageEntity
+    suspend fun getPageSync(): TrendingMoviesPageEntity?
 
     @Query("DELETE FROM TrendingMoviesPageEntity")
     suspend fun deleteAll()
