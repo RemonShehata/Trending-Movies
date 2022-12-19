@@ -97,7 +97,7 @@ infix fun ConfigurationEntity.toMovieDetailsDto(movie: MovieDetailsEntity): Movi
         popularity = movie.popularity,
         posterUrl = posterUrl,
         releaseDate = movie.releaseDate,
-        revenue = movie.revenue.toString(),
+        revenue = movie.revenue,
         runtime = movie.runtime,
         spokenLanguages = movie.spokenLanguages.map { it.name },
         status = movie.status,

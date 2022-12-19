@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="com.example.trendingmovies.features.movie_details.MovieDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:elevation="16dp"
@@ -219,9 +220,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            tools:text="English"
             app:layout_constraintStart_toEndOf="@+id/languageTextViewLabel"
-            app:layout_constraintTop_toBottomOf="@+id/overviewTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/overviewTextView"
+            tools:text="English" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/revenueTextViewLabel"
@@ -239,10 +240,43 @@
             android:id="@+id/revenueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="$500,0000"
             app:layout_constraintBottom_toBottomOf="@+id/revenueTextViewLabel"
             app:layout_constraintStart_toStartOf="@+id/languageTextView"
-            app:layout_constraintTop_toTopOf="@+id/revenueTextViewLabel" />
+            app:layout_constraintTop_toTopOf="@+id/revenueTextViewLabel"
+            tools:text="$500,0000" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/noInternet"
+            layout="@layout/no_internet_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/dataViewGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="revenueTextView, revenueTextViewLabel, languageTextView,
+            languageTextViewLabel,overviewTextView, statusTextView, statusImageView, votCountTextView,
+            voteCountImageView, releaseDateTextView, calendarImageView,genre3TextView, genre2TextView,
+            genre1TextView, genre1TextView, durationTextview, rateTextView, rateImageView,
+            movieTitletextView, cardView"
+            tools:layout_editor_absoluteX="373dp"
+            tools:layout_editor_absoluteY="523dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

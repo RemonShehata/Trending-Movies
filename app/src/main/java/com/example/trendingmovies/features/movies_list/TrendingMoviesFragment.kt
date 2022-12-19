@@ -82,11 +82,10 @@ class TrendingMoviesFragment : Fragment() {
                 when (result) {
                     is State.Error -> {
                         binding.progressBar.visibility = View.GONE
-
+                        binding.moviesListRecycler.visibility = View.GONE
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
                                 binding.noInternet.root.visibility = View.VISIBLE
-                                binding.moviesListRecycler.visibility = View.GONE
                             }
 
                             ErrorType.NoInternetForNextPage -> {
