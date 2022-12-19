@@ -102,12 +102,12 @@ class TrendingMoviesViewModel @Inject constructor(
             }
         }
 
-        mediatorLiveData.addSource(moviesLiveData) {
-            mediatorLiveData.value = Pair(it, isOnlineLiveData.value)
-        }
-
         mediatorLiveData.addSource(isOnlineLiveData) {
             mediatorLiveData.value = Pair(moviesLiveData.value, it)
+        }
+
+        mediatorLiveData.addSource(moviesLiveData) {
+            mediatorLiveData.value = Pair(it, isOnlineLiveData.value)
         }
     }
 
