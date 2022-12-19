@@ -13,6 +13,7 @@ import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -45,6 +46,8 @@ class TrendingMoviesViewModel @Inject constructor(
             } catch (unknownHostException: UnknownHostException) {
                 Log.d(TAG, "caught exception in collect")
                 moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternetForNextPage))
+            } catch (socketTimeoutException: SocketTimeoutException) {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
             } catch (exception: Exception) {
                 moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
             }
@@ -68,6 +71,8 @@ class TrendingMoviesViewModel @Inject constructor(
                     moviesMutableLiveData.postValue(State.Success(movies))
                 } catch (unknownHostException: UnknownHostException) {
                     Log.d(TAG, "caught exception in collect")
+                    moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+                } catch (socketTimeoutException: SocketTimeoutException) {
                     moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
                 } catch (exception: Exception) {
                     moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
@@ -110,6 +115,8 @@ class TrendingMoviesViewModel @Inject constructor(
         try {
             trendingMoviesRepo.getAllMoviesSync()
         } catch (unknownHostException: UnknownHostException) {
+            moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+        } catch (socketTimeoutException: SocketTimeoutException) {
             moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
         } catch (exception: Exception) {
             moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
