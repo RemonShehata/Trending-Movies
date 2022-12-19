@@ -1,8 +1,8 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.source.repos
 
-import com.example.trendingmovies.database.MovieDetailsDao
-import com.example.trendingmovies.database.MovieDetailsEntity
-import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.core.source.local.MovieDetailsDao
+import com.example.trendingmovies.core.source.local.models.MovieDetailsEntity
+import com.example.trendingmovies.core.source.remote.MoviesApi
 import com.example.trendingmovies.utils.toMovieDetailsEntity
 import javax.inject.Inject
 

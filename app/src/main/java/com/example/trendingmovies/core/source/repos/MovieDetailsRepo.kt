@@ -1,6 +1,6 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.source.repos
 
-import com.example.trendingmovies.database.MovieDetailsEntity
+import com.example.trendingmovies.core.source.local.models.MovieDetailsEntity
 
 interface MovieDetailsRepo {
     suspend fun getMovieDetails(movieId: String): MovieDetailsEntity

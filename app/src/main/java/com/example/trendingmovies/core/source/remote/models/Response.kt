@@ -157,5 +157,4 @@ data class Image(
     @Json(name = "poster_sizes") val posterSizes: List<String>,
     @Json(name = "profile_sizes") val profileSizes: List<String>,
     @Json(name = "still_sizes") val stillSizes: List<String>,
-
-    )
+)

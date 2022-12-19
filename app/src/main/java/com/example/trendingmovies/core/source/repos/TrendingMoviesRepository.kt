@@ -1,11 +1,11 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.source.repos
 
 import android.util.Log
-import com.example.trendingmovies.core.TAG
-import com.example.trendingmovies.database.TrendingMoviesDao
-import com.example.trendingmovies.database.TrendingMoviesEntity
-import com.example.trendingmovies.database.TrendingMoviesPageDao
-import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.core.source.local.TrendingMoviesDao
+import com.example.trendingmovies.core.source.local.models.TrendingMoviesEntity
+import com.example.trendingmovies.core.source.local.TrendingMoviesPageDao
+import com.example.trendingmovies.core.source.remote.MoviesApi
 import com.example.trendingmovies.utils.toTrendingMoviesEntityList
 import com.example.trendingmovies.utils.toTrendingMoviesPageEntity
 import kotlinx.coroutines.flow.Flow

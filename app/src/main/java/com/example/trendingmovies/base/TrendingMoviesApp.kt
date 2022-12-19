@@ -1,4 +1,4 @@
-package com.example.trendingmovies.core
+package com.example.trendingmovies.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

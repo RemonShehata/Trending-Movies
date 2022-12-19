@@ -1,10 +1,10 @@
-package com.example.trendingmovies.core
+package com.example.trendingmovies.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.trendingmovies.database.MoviesDatabase
+import com.example.trendingmovies.core.source.local.MoviesDatabase
 import com.example.trendingmovies.databinding.ActivityMainBinding
-import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.core.source.remote.MoviesApi
 import com.example.trendingmovies.utils.toTrendingMoviesEntityList
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

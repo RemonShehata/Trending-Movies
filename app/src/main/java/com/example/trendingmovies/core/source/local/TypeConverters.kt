@@ -1,6 +1,7 @@
-package com.example.trendingmovies.database
+package com.example.trendingmovies.core.source.local
 
 import androidx.room.TypeConverter
+import com.example.trendingmovies.core.source.local.models.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

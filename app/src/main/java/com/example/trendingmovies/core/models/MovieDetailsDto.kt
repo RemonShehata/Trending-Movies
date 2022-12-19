@@ -1,6 +1,6 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.models
 
-import com.example.trendingmovies.database.Status
+import com.example.trendingmovies.core.source.local.models.Status
 
 data class MovieDetailsDto(
 //    val id: Int,

@@ -7,7 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trendingmovies.*
-import com.example.trendingmovies.core.TAG
+import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.core.models.TrendingMoviesDto
+import com.example.trendingmovies.core.source.repos.ConfigurationRepo
+import com.example.trendingmovies.core.source.repos.TrendingMoviesRepo
 import com.example.trendingmovies.utils.NetworkState
 import com.example.trendingmovies.utils.NetworkStateMonitor
 import com.example.trendingmovies.utils.toTrendingMovieDtoList
@@ -58,10 +61,6 @@ class TrendingMoviesViewModel @Inject constructor(
     init {
         Log.d(TAG, "viewModel: init")
         moviesMutableLiveData.value = State.Loading
-        isOnlineMutableLiveData.value = when (networkStateMonitor.getNetworkState()) {
-            NetworkState.Connected -> true
-            NetworkState.Disconnected -> false
-        }
 
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->

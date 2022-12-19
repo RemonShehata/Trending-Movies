@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trendingmovies.ErrorType
 import com.example.trendingmovies.State
-import com.example.trendingmovies.core.TAG
-import com.example.trendingmovies.database.MoviesDatabase
+import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.core.source.local.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
-import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.core.source.remote.MoviesApi
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

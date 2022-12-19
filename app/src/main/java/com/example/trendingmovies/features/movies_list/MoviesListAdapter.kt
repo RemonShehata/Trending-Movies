@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.with
 import com.example.trendingmovies.R
-import com.example.trendingmovies.TrendingMoviesDto
+import com.example.trendingmovies.core.models.TrendingMoviesDto
 import com.example.trendingmovies.databinding.MovieItemLayoutBinding
 import com.example.trendingmovies.di.MoviesGlideModule
 

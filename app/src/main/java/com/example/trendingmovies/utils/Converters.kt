@@ -1,8 +1,8 @@
 package com.example.trendingmovies.utils
 
-import com.example.trendingmovies.MovieDetailsDto
-import com.example.trendingmovies.TrendingMoviesDto
-import com.example.trendingmovies.database.*
+import com.example.trendingmovies.core.models.MovieDetailsDto
+import com.example.trendingmovies.core.models.TrendingMoviesDto
+import com.example.trendingmovies.core.source.local.models.*
 import com.example.trendingmovies.network.*
 
 fun MoviesResponse.toTrendingMoviesEntityList(): List<TrendingMoviesEntity> {

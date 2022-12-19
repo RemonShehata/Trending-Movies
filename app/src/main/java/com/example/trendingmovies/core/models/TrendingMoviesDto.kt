@@ -1,4 +1,4 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.models
 
 data class TrendingMoviesDto( //TODO: remove field we don't need here
     val id: String,

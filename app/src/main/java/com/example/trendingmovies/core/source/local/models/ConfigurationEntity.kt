@@ -1,4 +1,4 @@
-package com.example.trendingmovies.database
+package com.example.trendingmovies.core.source.local.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,8 +1,12 @@
-package com.example.trendingmovies.database
+package com.example.trendingmovies.core.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.trendingmovies.core.source.local.models.ConfigurationEntity
+import com.example.trendingmovies.core.source.local.models.MovieDetailsEntity
+import com.example.trendingmovies.core.source.local.models.TrendingMoviesEntity
+import com.example.trendingmovies.core.source.local.models.TrendingMoviesPageEntity
 
 @Database(
     entities = [TrendingMoviesEntity::class, MovieDetailsEntity::class,

@@ -1,7 +1,7 @@
 package com.example.trendingmovies.di
 
 import com.example.trendingmovies.BuildConfig
-import com.example.trendingmovies.network.MoviesApi
+import com.example.trendingmovies.core.source.remote.MoviesApi
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -23,7 +23,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMoviesApi(retrofit: Retrofit): MoviesApi{
+    fun provideMoviesApi(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
     }
 

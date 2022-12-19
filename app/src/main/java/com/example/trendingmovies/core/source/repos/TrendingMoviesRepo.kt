@@ -1,6 +1,6 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.source.repos
 
-import com.example.trendingmovies.database.TrendingMoviesEntity
+import com.example.trendingmovies.core.source.local.models.TrendingMoviesEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TrendingMoviesRepo {

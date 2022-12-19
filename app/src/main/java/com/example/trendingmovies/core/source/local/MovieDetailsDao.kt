@@ -1,8 +1,9 @@
-package com.example.trendingmovies.database
+package com.example.trendingmovies.core.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.trendingmovies.core.source.local.models.MovieDetailsEntity
 
 @Dao
 interface MovieDetailsDao {

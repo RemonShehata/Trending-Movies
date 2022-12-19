@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.trendingmovies.R
-import com.example.trendingmovies.core.TAG
-import com.example.trendingmovies.database.Status
+import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.core.source.local.models.Status
 import com.example.trendingmovies.databinding.FragmentMovieDetailsBinding
 import com.example.trendingmovies.di.MoviesGlideModule
 import dagger.hilt.android.AndroidEntryPoint
