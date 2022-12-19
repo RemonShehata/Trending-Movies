@@ -2,17 +2,6 @@ package com.example.trendingmovies.network
 
 import com.squareup.moshi.Json
 
-sealed class Response {
-//    object Loading : Response()
-//    data class Success(val data: List<Article>) : Response()
-//    data class Failure(val reason: FailureReason) : Response()
-}
-
-sealed class FailureReason {
-    object NoInternet : FailureReason()
-    class UnknownError(val error: String) : FailureReason()
-}
-
 data class MoviesResponse(
     @Json(name = "page") val page: Int,
     @Json(name = "results") val results: List<Movie>,
