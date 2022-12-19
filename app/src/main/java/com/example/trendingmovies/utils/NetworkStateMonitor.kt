@@ -9,6 +9,7 @@ import com.example.trendingmovies.TAG
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.IOException
 
 
 sealed class NetworkState {
@@ -33,7 +34,11 @@ class NetworkStateMonitor(private val applicationContext: Context) {
             override fun onAvailable(network: Network) {
                 // network available
                 Log.d(TAG, "onAvailable: ")
-                networkMutableStateFlow.value = NetworkState.Connected
+//                if (pingServer()){
+                    networkMutableStateFlow.value = NetworkState.Connected
+//                } else {
+//                    networkMutableStateFlow.value = NetworkState.Disconnected
+//                }
             }
 
             override fun onLost(network: Network) {
@@ -53,10 +58,27 @@ class NetworkStateMonitor(private val applicationContext: Context) {
 
         return if (activeNetwork != null && activeNetwork.isConnected) {
             Log.d(TAG, "getNetworkState: Connected")
+//            val result = pingServer()
+//            Log.d(TAG, "getNetworkState: pingServer = $result")
             NetworkState.Connected
         } else {
             Log.d(TAG, "getNetworkState: Disconnected")
             NetworkState.Disconnected
         }
+    }
+
+    // ICMP
+    private fun pingServer(): Boolean {
+        val runtime = Runtime.getRuntime()
+        try {
+            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+            val exitValue = ipProcess.waitFor()
+            return exitValue == 0
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+        return false
     }
 }
