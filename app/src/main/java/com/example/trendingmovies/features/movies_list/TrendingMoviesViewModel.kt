@@ -1,12 +1,9 @@
 package com.example.trendingmovies.features.movies_list
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.trendingmovies.*
+import androidx.lifecycle.*
+import com.example.trendingmovies.ErrorType
+import com.example.trendingmovies.State
 import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.TrendingMoviesDto
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo
@@ -45,15 +42,8 @@ class TrendingMoviesViewModel @Inject constructor(
         moviesMutableLiveData.value = State.Loading
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "getNextPageData in viewModel ")
-            try {
-                trendingMoviesRepo.getMoviesForPage() //returns false if we reached the end
-            } catch (unknownHostException: UnknownHostException) {
-                Log.d(TAG, "caught exception in collect")
-                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternetForNextPage))
-            } catch (socketTimeoutException: SocketTimeoutException) {
-                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-            } catch (exception: Exception) {
-                moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            networkCallWithExceptionHandling {
+                trendingMoviesRepo.getMoviesForPage()
             }
         }
     }
@@ -65,17 +55,10 @@ class TrendingMoviesViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
                 Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
-                try {
+                networkCallWithExceptionHandling {
                     val configurationResult = configurationRepo.getConfiguration()
                     val movies = configurationResult toTrendingMovieDtoList moviesList
                     moviesMutableLiveData.postValue(State.Success(movies))
-                } catch (unknownHostException: UnknownHostException) {
-                    Log.d(TAG, "caught exception in collect")
-                    moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-                } catch (socketTimeoutException: SocketTimeoutException) {
-                    moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-                } catch (exception: Exception) {
-                    moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
                 }
             }
         }
@@ -112,8 +95,12 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 
     private suspend fun getAllMovies() {
+        networkCallWithExceptionHandling { trendingMoviesRepo.getAllMoviesSync() }
+    }
+
+    private suspend fun networkCallWithExceptionHandling(call: suspend () -> Unit) {
         try {
-            trendingMoviesRepo.getAllMoviesSync()
+            call.invoke()
         } catch (unknownHostException: UnknownHostException) {
             moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
         } catch (socketTimeoutException: SocketTimeoutException) {
