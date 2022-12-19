@@ -65,11 +65,15 @@ class TrendingMoviesFragment : Fragment() {
         }
 
         with(trendingTrendingMoviesViewModel) {
-            mediatorLiveData.observe(viewLifecycleOwner){
+            mediatorLiveData.observe(viewLifecycleOwner) {
                 Log.d(TAG, "mediatorLiveData: state = ${it.first}")
                 Log.d(TAG, "mediatorLiveData: isOnline = ${it.second}")
                 if (it.first is State.Success && it.second == false) {
-                    Toast.makeText(requireContext(), "You are viewing cached data", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        "You are viewing cached data",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }
@@ -77,6 +81,8 @@ class TrendingMoviesFragment : Fragment() {
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {
                     is State.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
                                 binding.noInternet.root.visibility = View.VISIBLE
@@ -84,13 +90,21 @@ class TrendingMoviesFragment : Fragment() {
                             }
 
                             ErrorType.NoInternetForNextPage -> {
-                                Toast.makeText(requireContext(), "NoInternetForNextPage", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "NoInternetForNextPage",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                             }
 
                             ErrorType.ReachedEndOfList -> TODO()
                             ErrorType.UnknownError -> {
-                                Toast.makeText(requireContext(), "Unkown error!", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Unkown error!",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                             }
                         }
@@ -99,11 +113,13 @@ class TrendingMoviesFragment : Fragment() {
                     State.Loading -> {
                         Log.d(TAG, "onViewCreated: loading")
                         binding.noInternet.root.visibility = View.GONE
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
                     is State.Success -> {
                         binding.noInternet.root.visibility = View.GONE
                         binding.moviesListRecycler.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
                         moviesListAdapter.setItems(result.data)
                     }
                 }
