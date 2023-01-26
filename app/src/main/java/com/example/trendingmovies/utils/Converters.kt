@@ -4,6 +4,7 @@ import com.example.trendingmovies.core.models.MovieDetailsDto
 import com.example.trendingmovies.core.models.TrendingMoviesDto
 import com.example.trendingmovies.core.source.local.models.*
 import com.example.trendingmovies.network.*
+import java.util.Locale
 
 fun MoviesResponse.toTrendingMoviesEntityList(): List<TrendingMoviesEntity> {
     val trendingMoviesEntities: MutableList<TrendingMoviesEntity> =
@@ -91,7 +92,7 @@ infix fun ConfigurationEntity.toMovieDetailsDto(movie: MovieDetailsEntity): Movi
     return MovieDetailsDto(
         budget = movie.budget,
         genres = movie.genres.map { it.name },
-        originalLanguage = movie.originalLanguage,
+        originalLanguage = Locale(movie.originalLanguage).displayLanguage,
         originalTitle = movie.originalTitle,
         overview = movie.overview,
         popularity = movie.popularity,
