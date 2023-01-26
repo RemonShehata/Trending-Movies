@@ -2,8 +2,8 @@ package com.example.trendingmovies.features.movies_list
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.trendingmovies.ErrorType
-import com.example.trendingmovies.State
+import com.example.trendingmovies.core.models.ErrorType
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.TrendingMoviesDto
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo

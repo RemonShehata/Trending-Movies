@@ -4,15 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.trendingmovies.ErrorType
-import com.example.trendingmovies.State
+import com.example.trendingmovies.core.models.ErrorType
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.core.models.MovieDetailsDto
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo
 import com.example.trendingmovies.core.source.repos.MovieDetailsRepo
 import com.example.trendingmovies.utils.toMovieDetailsDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

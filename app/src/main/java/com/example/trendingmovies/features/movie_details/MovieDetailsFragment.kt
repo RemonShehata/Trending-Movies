@@ -12,9 +12,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.trendingmovies.ErrorType
+import com.example.trendingmovies.core.models.ErrorType
 import com.example.trendingmovies.R
-import com.example.trendingmovies.State
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.MovieDetailsDto
 import com.example.trendingmovies.core.source.local.models.Status
@@ -135,7 +135,7 @@ class MovieDetailsFragment : Fragment() {
         val format: NumberFormat = NumberFormat.getCurrencyInstance()
         format.maximumFractionDigits = 0
         format.currency = Currency.getInstance("USD")
-        binding.revenueTextView.text = "${format.format(movie.revenue)}"
+        binding.revenueTextView.text = format.format(movie.revenue)
 
         MoviesGlideModule()
         com.bumptech.glide.Glide.with(requireContext())

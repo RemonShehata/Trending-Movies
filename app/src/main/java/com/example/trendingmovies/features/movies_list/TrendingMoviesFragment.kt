@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trendingmovies.ErrorType
-import com.example.trendingmovies.State
+import com.example.trendingmovies.core.models.ErrorType
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.source.local.MoviesDatabase
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding

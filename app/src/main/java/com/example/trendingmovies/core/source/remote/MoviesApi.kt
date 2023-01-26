@@ -1,8 +1,8 @@
 package com.example.trendingmovies.core.source.remote
 
-import com.example.trendingmovies.network.ConfigurationResponse
-import com.example.trendingmovies.network.MovieDetailsResponse
-import com.example.trendingmovies.network.MoviesResponse
+import com.example.trendingmovies.core.source.remote.models.ConfigurationResponse
+import com.example.trendingmovies.core.source.remote.models.MovieDetailsResponse
+import com.example.trendingmovies.core.source.remote.models.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

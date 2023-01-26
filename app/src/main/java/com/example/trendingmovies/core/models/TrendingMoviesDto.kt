@@ -1,6 +1,6 @@
 package com.example.trendingmovies.core.models
 
-data class TrendingMoviesDto( //TODO: remove field we don't need here
+data class TrendingMoviesDto(
     val id: String,
     val title: String,
     val releaseDate: String,

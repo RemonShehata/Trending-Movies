@@ -1,9 +1,7 @@
 package com.example.trendingmovies.features.movies_list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.example.trendingmovies.State
-import com.example.trendingmovies.core.models.TrendingMoviesDto
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.core.source.local.models.ConfigurationEntity
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo
 import com.example.trendingmovies.core.source.repos.TrendingMoviesRepo

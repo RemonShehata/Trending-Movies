@@ -1,4 +1,4 @@
-package com.example.trendingmovies
+package com.example.trendingmovies.core.models
 
 sealed class State<out T> {
     object Loading : State<Nothing>()

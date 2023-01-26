@@ -1,4 +1,4 @@
-package com.example.trendingmovies.network
+package com.example.trendingmovies.core.source.remote.models
 
 import com.squareup.moshi.Json
 
