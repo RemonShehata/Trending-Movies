@@ -126,6 +126,36 @@
             app:layout_constraintTop_toBottomOf="@+id/genre2TextView"
             tools:text="Action" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/genre4TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:padding="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/genre3TextView"
+            tools:text="Action" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/genre5TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:padding="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/genre4TextView"
+            tools:text="Action" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/calendarImageView"
             android:layout_width="wrap_content"

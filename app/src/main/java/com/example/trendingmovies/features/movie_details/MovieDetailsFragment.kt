@@ -106,10 +106,14 @@ class MovieDetailsFragment : Fragment() {
         binding.genre1TextView.isVisible = movie.genres.isNotEmpty()
         binding.genre2TextView.isVisible = movie.genres.size > 1
         binding.genre3TextView.isVisible = movie.genres.size > 2
+        binding.genre4TextView.isVisible = movie.genres.size > 3
+        binding.genre5TextView.isVisible = movie.genres.size > 4
 
         movie.genres.getOrNull(0)?.let { binding.genre1TextView.text = it }
         movie.genres.getOrNull(1)?.let { binding.genre2TextView.text = it }
         movie.genres.getOrNull(2)?.let { binding.genre3TextView.text = it }
+        movie.genres.getOrNull(3)?.let { binding.genre4TextView.text = it }
+        movie.genres.getOrNull(4)?.let { binding.genre5TextView.text = it }
 
         binding.releaseDateTextView.text = movie.releaseDate
         binding.votCountTextView.text = movie.voteCount
