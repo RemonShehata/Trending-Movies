@@ -52,23 +52,32 @@ class TrendingMoviesViewModel @Inject constructor(
         Log.d(TAG, "viewModel: init")
         moviesMutableLiveData.value = State.Loading
 
+        // after movies have been inserted in DB
+        // listen for db changes
+        // then convert the entity into dto also getting full url in thr process
         viewModelScope.launch(ioDispatcher) {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
                 Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
                 networkCallWithExceptionHandling {
                     val configurationResult = configurationRepo.getConfiguration()
-                    val movies = configurationResult toTrendingMovieDtoList moviesList
+                    val movies =
+                        configurationResult toTrendingMovieDtoList moviesList
                     moviesMutableLiveData.postValue(State.Success(movies))
                 }
             }
         }
 
 
+        // if we don't have movies in db
+        // get page 1 from api, then insert movies into db
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "viewModel init: getting movies from api")
             getAllMovies()
         }
 
+        // listen for network changes,
+        // when we are in a connected state, we get list for the next page
+        // TODO: get movies for the next page only when we are at the bottom of the recycler view
         viewModelScope.launch(ioDispatcher) {
             networkStateMonitor.networkStateFlow.collect { state ->
                 Log.d(TAG, "networkState: $state")
@@ -80,8 +89,6 @@ class TrendingMoviesViewModel @Inject constructor(
                     }
                     NetworkState.Disconnected -> isOnlineMutableLiveData.postValue(false)
                 }
-
-
             }
         }
 

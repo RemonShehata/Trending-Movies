@@ -53,7 +53,8 @@ fun ConfigurationResponse.toConfigurationEntity(): ConfigurationEntity {
     )
 }
 
-infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMoviesEntity>): List<TrendingMoviesDto> {
+infix fun ConfigurationEntity.toTrendingMovieDtoList(movies: List<TrendingMoviesEntity>)
+        : List<TrendingMoviesDto> {
     val trendingMoviesDtoList: MutableList<TrendingMoviesDto> = mutableListOf()
     movies.forEach { movie ->
         val posterUrl: String? = movie.posterPath?.let {
