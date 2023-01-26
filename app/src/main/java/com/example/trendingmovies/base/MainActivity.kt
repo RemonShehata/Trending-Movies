@@ -8,9 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.trendingmovies.R
 import com.example.trendingmovies.core.source.local.MoviesDatabase
-import com.example.trendingmovies.databinding.ActivityMainBinding
 import com.example.trendingmovies.core.source.remote.MoviesApi
-import com.example.trendingmovies.utils.toTrendingMoviesEntityList
+import com.example.trendingmovies.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.findNavController()
 
         setSupportActionBar(binding.toolbar)
@@ -41,25 +41,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
-
-    suspend fun getAllMovies() {
-        val result = moviesApi.getTrendingMovies()
-//    Log.d(TAG, "getAllMovies: $result")
-        moviesDatabase.trendingMoviesDao().insertMovies(result.toTrendingMoviesEntityList())
-    }
-
-    suspend fun getMovieDetails() {
-        val result = moviesApi.getMovieDetails(MOVIE_ID)
-//    Log.d(TAG, "getMovieDetails: $result")
-    }
-
-    suspend fun getConfigurations() {
-        val result = moviesApi.getConfiguration()
-//    Log.d(TAG, "getConfigurations: $result")
-    }
 }
 
 const val TAG = "Remon"
-const val MOVIE_ID = "436270"
-
