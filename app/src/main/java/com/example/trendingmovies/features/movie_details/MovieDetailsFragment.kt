@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -118,12 +119,12 @@ class MovieDetailsFragment : Fragment() {
         binding.releaseDateTextView.text = movie.releaseDate
         binding.votCountTextView.text = movie.voteCount
 
-        val statusImage: Drawable = when (movie.status) {
+        val statusImage: Drawable? = when (movie.status) {
             Status.Rumored, Status.Planned ->
-                resources.getDrawable(R.drawable.ic_error)
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_error, null)
             Status.InProduction, Status.PostProduction, Status.Released ->
-                resources.getDrawable(R.drawable.ic_check_circle)
-            Status.Canceled -> resources.getDrawable(R.drawable.ic_cancel)
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_check_circle, null)
+            Status.Canceled -> ResourcesCompat.getDrawable(resources, R.drawable.ic_cancel, null)
         }
 
         binding.statusImageView.setImageDrawable(statusImage)
