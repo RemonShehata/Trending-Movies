@@ -50,8 +50,6 @@ enum class Status(val value: String) {
     PostProduction("Post Production"),
     Released("Released"),
     Canceled("Canceled")
-
-    // TODO: associate with map here
 }
 
 data class ProductionCompany(

@@ -39,8 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:maxLines="2"
-            android:textSize="30sp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView"
@@ -126,11 +127,11 @@
             android:id="@+id/calendarImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:tint="@color/teal_700"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/genre3TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/languageTextViewLabel"
             app:srcCompat="@drawable/ic_calendar" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -147,10 +148,10 @@
             android:id="@+id/voteCountImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:tint="@color/teal_700"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarImageView"
             app:srcCompat="@drawable/ic_thumbs_up_down" />
 
@@ -168,11 +169,10 @@
             android:id="@+id/statusImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:tint="@color/teal_700"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/voteCountImageView"
             app:srcCompat="@drawable/ic_check_circle" />
 
@@ -184,8 +184,10 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/statusImageView"
             app:layout_constraintTop_toTopOf="@+id/statusImageView"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Released" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -204,15 +206,16 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView"
             tools:text="Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world." />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/languageTextViewLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Language"
+            android:tint="@color/teal_700"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/overviewTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/overviewTextView"
+            app:srcCompat="@drawable/ic_language" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/languageTextView"
@@ -224,17 +227,18 @@
             app:layout_constraintTop_toBottomOf="@+id/overviewTextView"
             tools:text="English" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/revenueTextViewLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Revenue"
+            android:tint="@color/teal_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/languageTextViewLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/statusImageView"
+            app:srcCompat="@drawable/ic_money" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/revenueTextView"

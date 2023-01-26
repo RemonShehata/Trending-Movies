@@ -62,19 +62,14 @@ class MovieDetailsFragment : Fragment() {
                             }
 
                             ErrorType.NoInternetForNextPage -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "NoInternetForNextPage",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                TODO()
                             }
 
                             ErrorType.ReachedEndOfList -> TODO()
                             ErrorType.UnknownError -> {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Unkown error!",
+                                    "Unknown error!",
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
