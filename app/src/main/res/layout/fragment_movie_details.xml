@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/white"
     tools:context="com.example.trendingmovies.features.movie_details.MovieDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -35,6 +36,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/movieTitletextView"
+            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,6 +44,7 @@
             android:ellipsize="end"
             android:maxLines="5"
             android:textSize="24sp"
+            android:textColor="@color/teal_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView"
@@ -201,6 +204,7 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
