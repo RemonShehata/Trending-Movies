@@ -8,7 +8,19 @@ sealed class State<out T> {
 
 sealed class ErrorType {
     object NoInternet : ErrorType()
+
+    // TODO: This is not generic. it is not needed for details
     object NoInternetForNextPage : ErrorType()
+
+    // TODO: This is not generic. it is not needed for details
     object ReachedEndOfList : ErrorType()
-    object UnknownError: ErrorType()
+
+    data class RemoteResponseParsingError(val message: String?) : ErrorType()
+
+    object UnAuthorized : ErrorType()
+
+    data class ServerError(val code: Int, val message: String?) : ErrorType()
+
+    object ResourceNotFound : ErrorType()
+    data class UnknownError(val message: String?) : ErrorType()
 }

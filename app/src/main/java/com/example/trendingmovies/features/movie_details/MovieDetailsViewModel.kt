@@ -51,7 +51,7 @@ class MovieDetailsViewModel @Inject constructor(
         } catch (socketTimeoutException: SocketTimeoutException) {
             movieDetailsMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
         } catch (exception: Exception) {
-            movieDetailsMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            movieDetailsMutableLiveData.postValue(State.Error(ErrorType.UnknownError(exception.message)))
         }
     }
 }

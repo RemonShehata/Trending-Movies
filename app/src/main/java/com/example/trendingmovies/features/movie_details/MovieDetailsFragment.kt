@@ -67,7 +67,7 @@ class MovieDetailsFragment : Fragment() {
                             }
 
                             ErrorType.ReachedEndOfList -> TODO()
-                            ErrorType.UnknownError -> {
+                            is ErrorType.UnknownError -> {
                                 Toast.makeText(
                                     requireContext(),
                                     "Unknown error!",

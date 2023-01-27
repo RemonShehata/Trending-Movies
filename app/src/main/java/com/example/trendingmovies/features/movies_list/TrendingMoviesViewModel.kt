@@ -2,10 +2,11 @@ package com.example.trendingmovies.features.movies_list
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.ErrorType
 import com.example.trendingmovies.core.models.State
-import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.TrendingMoviesDto
+import com.example.trendingmovies.core.source.remote.*
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo
 import com.example.trendingmovies.core.source.repos.TrendingMoviesRepo
 import com.example.trendingmovies.utils.NetworkState
@@ -14,8 +15,6 @@ import com.example.trendingmovies.utils.toTrendingMovieDtoList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +36,8 @@ class TrendingMoviesViewModel @Inject constructor(
 
 
     val mediatorLiveData = MediatorLiveData<Pair<State<List<TrendingMoviesDto>>?, Boolean?>>()
+
+    var atBottomOfScreen: Boolean = false
 
     fun getNextPageData() {
         moviesMutableLiveData.value = State.Loading
@@ -67,6 +68,9 @@ class TrendingMoviesViewModel @Inject constructor(
             }
         }
 
+//        /Users/remon.shehata/Library/Android/sdk/tools/emulator
+//        emulator -avd emulator-5554 -dns-server 8.8.8.8 -netspeed gsm -netdelay 2000
+
 
         // if we don't have movies in db
         // get page 1 from api, then insert movies into db
@@ -84,8 +88,12 @@ class TrendingMoviesViewModel @Inject constructor(
                 Log.d(TAG, "viewModel networkstate: getting movies from api")
                 when (state) {
                     NetworkState.Connected -> {
-                        trendingMoviesRepo.getMoviesForPage()
+//                        if (atBottomOfScreen){
+                        Log.d(TAG, "network state on and at bottom of screen: ")
+//                        trendingMoviesRepo.getMoviesForPage()
                         isOnlineMutableLiveData.postValue(true)
+//                        }
+
                     }
                     NetworkState.Disconnected -> isOnlineMutableLiveData.postValue(false)
                 }
@@ -108,12 +116,37 @@ class TrendingMoviesViewModel @Inject constructor(
     private suspend fun networkCallWithExceptionHandling(call: suspend () -> Unit) {
         try {
             call.invoke()
-        } catch (unknownHostException: UnknownHostException) {
+        } catch (noNetworkException: NoNetworkConnectionException) {
             moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-        } catch (socketTimeoutException: SocketTimeoutException) {
-            moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+        } catch (responseParsingException: ResponseParsingException) {
+            moviesMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.RemoteResponseParsingError(
+                        responseParsingException.message
+                    )
+                )
+            )
+        } catch (unAuthorizedException: UnAuthorizedException) {
+            moviesMutableLiveData.postValue(State.Error(ErrorType.UnAuthorized))
+        } catch (serverErrorException: ServerErrorException) {
+            moviesMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.ServerError(
+                        serverErrorException.code,
+                        serverErrorException.message
+                    )
+                )
+            )
+        } catch (resourceNotFoundException: ResourceNotFoundException) {
+            moviesMutableLiveData.postValue(State.Error(ErrorType.ResourceNotFound))
+        } catch (unknownErrorException: UnknownErrorException) {
+            moviesMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.UnknownError(unknownErrorException.message)
+                )
+            )
         } catch (exception: Exception) {
-            moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError))
+            moviesMutableLiveData.postValue(State.Error(ErrorType.UnknownError(exception.message)))
         }
     }
 }

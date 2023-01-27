@@ -46,7 +46,10 @@ class TrendingMoviesFragment : Fragment() {
                     super.onScrollStateChanged(recyclerView, newState)
                     if (!recyclerView.canScrollVertically(1)) {
                         Log.d(TAG, "onScrollStateChanged: end of scroll")
-                        trendingTrendingMoviesViewModel.getNextPageData()
+                        trendingTrendingMoviesViewModel.atBottomOfScreen = true
+//                        trendingTrendingMoviesViewModel.getNextPageData()
+                    } else {
+                        trendingTrendingMoviesViewModel.atBottomOfScreen = false
                     }
                 }
             })
@@ -98,7 +101,7 @@ class TrendingMoviesFragment : Fragment() {
                             }
 
                             ErrorType.ReachedEndOfList -> TODO()
-                            ErrorType.UnknownError -> {
+                            is ErrorType.UnknownError -> {
                                 Toast.makeText(
                                     requireContext(),
                                     "Unkown error!",
