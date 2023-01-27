@@ -36,8 +36,12 @@ class MovieDetailsViewModel @Inject constructor(
             networkCallWithExceptionHandling {
                 val result = movieDetailsRepo.getMovieDetails(movieId)
                 val config = configurationRepo.getConfiguration()
-                val movie = config toMovieDetailsDto result
-                movieDetailsMutableLiveData.postValue(State.Success(movie))
+                val movie = result?.let {
+                    config?.toMovieDetailsDto(it)
+                }
+
+                movie?.let { movieDetailsMutableLiveData.postValue(State.Success(it)) }
+
             }
         }
     }

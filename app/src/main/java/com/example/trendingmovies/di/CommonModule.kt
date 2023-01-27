@@ -62,9 +62,9 @@ class CommonModule {
     @Provides
     fun provideMovieDetailsRepo(
         movieDetailsDao: MovieDetailsDao,
-        moviesApi: MoviesApi
+       moviesRemoteDataSource: MoviesRemoteDataSource
     ): MovieDetailsRepo {
-        return MovieDetailsRepository(moviesApi, movieDetailsDao)
+        return MovieDetailsRepository(moviesRemoteDataSource, movieDetailsDao)
     }
 
     @Singleton
