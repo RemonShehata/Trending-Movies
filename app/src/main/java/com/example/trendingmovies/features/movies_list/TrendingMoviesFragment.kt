@@ -5,18 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.BuildConfig
 import com.example.trendingmovies.core.models.ErrorType
 import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.core.source.local.MoviesDatabase
 import com.example.trendingmovies.core.source.remote.MoviesApi
 import com.example.trendingmovies.databinding.FragmentMoviesListBinding
+import com.example.trendingmovies.utils.gone
+import com.example.trendingmovies.utils.showToast
+import com.example.trendingmovies.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -72,44 +74,45 @@ class TrendingMoviesFragment : Fragment() {
                 Log.d(TAG, "mediatorLiveData: state = ${it.first}")
                 Log.d(TAG, "mediatorLiveData: isOnline = ${it.second}")
                 if (it.first is State.Success && it.second == false) {
-                    Toast.makeText(
-                        requireContext(),
-                        "You are viewing cached data",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    showToast("You are viewing cached data...")
                 }
             }
+
             moviesLiveData.observe(viewLifecycleOwner) { result ->
                 Log.d(TAG, "onViewCreated: result = $result")
                 when (result) {
                     is State.Error -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBar.gone()
 
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
-                                binding.moviesListRecycler.visibility = View.GONE
-                                binding.noInternet.root.visibility = View.VISIBLE
+                                binding.moviesListRecycler.gone()
+                                binding.noInternet.root.visible()
                             }
 
                             ErrorType.NoInternetForNextPage -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "NoInternetForNextPage",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                showToast("NoInternetForNextPage")
                             }
 
-                            ErrorType.ReachedEndOfList -> TODO()
+                            ErrorType.ReachedEndOfList -> {
+                                showToast("ReachedEndOfList")
+                            }
+
                             is ErrorType.UnknownError -> {
-                                binding.moviesListRecycler.visibility = View.GONE
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Unkown error!",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                binding.moviesListRecycler.gone()
+                                showToast("Unknown error!")
+                            }
+
+                            is ErrorType.RemoteResponseParsingError, ErrorType.ResourceNotFound,
+                            ErrorType.ResourceNotFound, is ErrorType.ServerError -> {
+                                Log.e(TAG, "Error: ${result.errorType}")
+                                showToast("An error has occurred! check the logs.")
+                            }
+
+                            ErrorType.UnAuthorized -> {
+                                Log.e(TAG, "Error: ${result.errorType}")
+                                Log.e(TAG, "API Key: ${BuildConfig.TMDB_API_KEY}")
+                                showToast("API key is wrong or invalid!")
                             }
                         }
                     }
@@ -137,5 +140,9 @@ class TrendingMoviesFragment : Fragment() {
                 movieId
             )
         )
+    }
+
+    companion object{
+        private const val TAG = "TrendingMoviesFragment"
     }
 }
