@@ -53,9 +53,9 @@ class CommonModule {
     @Provides
     fun provideConfigurationRepo(
         configurationDao: ConfigurationDao,
-        moviesApi: MoviesApi
+        moviesRemoteDataSource: MoviesRemoteDataSource
     ): ConfigurationRepo {
-        return ConfigurationRepository(moviesApi, configurationDao)
+        return ConfigurationRepository(moviesRemoteDataSource, configurationDao)
     }
 
     @Singleton

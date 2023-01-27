@@ -62,8 +62,8 @@ class TrendingMoviesViewModel @Inject constructor(
                 networkCallWithExceptionHandling {
                     val configurationResult = configurationRepo.getConfiguration()
                     val movies =
-                        configurationResult toTrendingMovieDtoList moviesList
-                    moviesMutableLiveData.postValue(State.Success(movies))
+                        configurationResult?.toTrendingMovieDtoList(moviesList)
+                    movies?.let {  moviesMutableLiveData.postValue(State.Success(it)) }
                 }
             }
         }
