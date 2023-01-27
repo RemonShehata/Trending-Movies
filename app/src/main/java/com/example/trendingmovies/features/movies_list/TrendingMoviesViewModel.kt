@@ -88,11 +88,15 @@ class TrendingMoviesViewModel @Inject constructor(
                 Log.d(TAG, "viewModel networkstate: getting movies from api")
                 when (state) {
                     NetworkState.Connected -> {
-//                        if (atBottomOfScreen){
-                        Log.d(TAG, "network state on and at bottom of screen: ")
-//                        trendingMoviesRepo.getMoviesForPage()
+                        // if we are at the bottom, get next page, else get the first page
+                        if (atBottomOfScreen) {
+                            Log.d(TAG, "network state on and at bottom of screen: ")
+                            trendingMoviesRepo.getMoviesForPage()
+                        } else {
+                            trendingMoviesRepo.getAllMoviesSync()
+                        }
+
                         isOnlineMutableLiveData.postValue(true)
-//                        }
 
                     }
                     NetworkState.Disconnected -> isOnlineMutableLiveData.postValue(false)
