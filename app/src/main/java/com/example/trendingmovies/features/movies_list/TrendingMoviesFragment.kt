@@ -11,12 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.models.ErrorType
 import com.example.trendingmovies.core.models.State
-import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.source.local.MoviesDatabase
-import com.example.trendingmovies.databinding.FragmentMoviesListBinding
 import com.example.trendingmovies.core.source.remote.MoviesApi
+import com.example.trendingmovies.databinding.FragmentMoviesListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,7 +47,7 @@ class TrendingMoviesFragment : Fragment() {
                     if (!recyclerView.canScrollVertically(1)) {
                         Log.d(TAG, "onScrollStateChanged: end of scroll")
                         trendingTrendingMoviesViewModel.atBottomOfScreen = true
-//                        trendingTrendingMoviesViewModel.getNextPageData()
+                        trendingTrendingMoviesViewModel.getNextPageData()
                     } else {
                         trendingTrendingMoviesViewModel.atBottomOfScreen = false
                     }
@@ -85,9 +85,10 @@ class TrendingMoviesFragment : Fragment() {
                 when (result) {
                     is State.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.moviesListRecycler.visibility = View.GONE
+
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
+                                binding.moviesListRecycler.visibility = View.GONE
                                 binding.noInternet.root.visibility = View.VISIBLE
                             }
 
@@ -102,6 +103,7 @@ class TrendingMoviesFragment : Fragment() {
 
                             ErrorType.ReachedEndOfList -> TODO()
                             is ErrorType.UnknownError -> {
+                                binding.moviesListRecycler.visibility = View.GONE
                                 Toast.makeText(
                                     requireContext(),
                                     "Unkown error!",

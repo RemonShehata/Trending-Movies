@@ -140,8 +140,6 @@ enum class StatusResponse(val value: String) {
     PostProduction("Post Production"),
     Released("Released"),
     Canceled("Canceled")
-
-    // TODO: associate with map here
 }
 
 data class ConfigurationResponse(

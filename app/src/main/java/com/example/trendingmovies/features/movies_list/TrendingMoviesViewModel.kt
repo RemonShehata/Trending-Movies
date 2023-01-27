@@ -63,7 +63,7 @@ class TrendingMoviesViewModel @Inject constructor(
                     val configurationResult = configurationRepo.getConfiguration()
                     val movies =
                         configurationResult?.toTrendingMovieDtoList(moviesList)
-                    movies?.let {  moviesMutableLiveData.postValue(State.Success(it)) }
+                    movies?.let { moviesMutableLiveData.postValue(State.Success(it)) }
                 }
             }
         }
@@ -117,7 +117,11 @@ class TrendingMoviesViewModel @Inject constructor(
         try {
             call.invoke()
         } catch (noNetworkException: NoNetworkConnectionException) {
-            moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+            if (atBottomOfScreen) {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternetForNextPage))
+            } else {
+                moviesMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+            }
         } catch (responseParsingException: ResponseParsingException) {
             moviesMutableLiveData.postValue(
                 State.Error(
