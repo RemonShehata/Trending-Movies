@@ -7,6 +7,7 @@ import com.example.trendingmovies.core.source.local.MovieDetailsDao
 import com.example.trendingmovies.core.source.local.TrendingMoviesDao
 import com.example.trendingmovies.core.source.local.TrendingMoviesPageDao
 import com.example.trendingmovies.core.source.remote.MoviesApi
+import com.example.trendingmovies.core.source.remote.MoviesRemoteDataSource
 import com.example.trendingmovies.core.source.repos.*
 import com.example.trendingmovies.utils.NetworkStateMonitor
 import com.squareup.moshi.Moshi
@@ -43,9 +44,9 @@ class CommonModule {
     fun provideMoviesListRepo(
         trendingMoviesDao: TrendingMoviesDao,
         trendingMoviesPageDao: TrendingMoviesPageDao,
-        moviesApi: MoviesApi
+        moviesRemoteDataSource: MoviesRemoteDataSource
     ): TrendingMoviesRepo {
-        return TrendingMoviesRepository(trendingMoviesDao, trendingMoviesPageDao, moviesApi)
+        return TrendingMoviesRepository(trendingMoviesDao, trendingMoviesPageDao, moviesRemoteDataSource)
     }
 
     @Singleton

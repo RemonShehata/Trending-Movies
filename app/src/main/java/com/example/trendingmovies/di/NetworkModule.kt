@@ -2,6 +2,7 @@ package com.example.trendingmovies.di
 
 import com.example.trendingmovies.BuildConfig
 import com.example.trendingmovies.core.source.remote.MoviesApi
+import com.example.trendingmovies.core.source.remote.MoviesRemoteDataSource
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,12 @@ class NetworkModule {
     @Provides
     fun provideMoviesApi(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMoviesRemoteDataSource(moviesApi: MoviesApi): MoviesRemoteDataSource{
+        return MoviesRemoteDataSource(moviesApi)
     }
 
     @Singleton
