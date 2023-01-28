@@ -5,16 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trendingmovies.core.models.ErrorType
-import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.core.models.MovieDetailsDto
+import com.example.trendingmovies.core.models.State
+import com.example.trendingmovies.core.source.remote.*
 import com.example.trendingmovies.core.source.repos.ConfigurationRepo
 import com.example.trendingmovies.core.source.repos.MovieDetailsRepo
 import com.example.trendingmovies.utils.toMovieDetailsDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 
@@ -47,13 +46,40 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
 
+    // TODO: DRY
+
     private suspend fun networkCallWithExceptionHandling(call: suspend () -> Unit) {
         try {
             call.invoke()
-        } catch (unknownHostException: UnknownHostException) {
+        } catch (noNetworkException: NoNetworkConnectionException) {
             movieDetailsMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
-        } catch (socketTimeoutException: SocketTimeoutException) {
-            movieDetailsMutableLiveData.postValue(State.Error(ErrorType.NoInternet))
+        } catch (responseParsingException: ResponseParsingException) {
+            movieDetailsMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.RemoteResponseParsingError(
+                        responseParsingException.message
+                    )
+                )
+            )
+        } catch (unAuthorizedException: UnAuthorizedException) {
+            movieDetailsMutableLiveData.postValue(State.Error(ErrorType.UnAuthorized))
+        } catch (serverErrorException: ServerErrorException) {
+            movieDetailsMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.ServerError(
+                        serverErrorException.code,
+                        serverErrorException.message
+                    )
+                )
+            )
+        } catch (resourceNotFoundException: ResourceNotFoundException) {
+            movieDetailsMutableLiveData.postValue(State.Error(ErrorType.ResourceNotFound))
+        } catch (unknownErrorException: UnknownErrorException) {
+            movieDetailsMutableLiveData.postValue(
+                State.Error(
+                    ErrorType.UnknownError(unknownErrorException.message)
+                )
+            )
         } catch (exception: Exception) {
             movieDetailsMutableLiveData.postValue(State.Error(ErrorType.UnknownError(exception.message)))
         }
