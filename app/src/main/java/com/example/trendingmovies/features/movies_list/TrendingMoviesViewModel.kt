@@ -56,7 +56,7 @@ class TrendingMoviesViewModel @Inject constructor(
         // after movies have been inserted in DB
         // listen for db changes
         // then convert the entity into dto also getting full url in thr process
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             trendingMoviesRepo.getAllMoviesFlow().collect { moviesList ->
                 Log.d(TAG, "viewModel: collect - size = ${moviesList.size}")
                 networkCallWithExceptionHandling {
@@ -68,13 +68,9 @@ class TrendingMoviesViewModel @Inject constructor(
             }
         }
 
-//        /Users/remon.shehata/Library/Android/sdk/tools/emulator
-//        emulator -avd emulator-5554 -dns-server 8.8.8.8 -netspeed gsm -netdelay 2000
-
-
         // if we don't have movies in db
         // get page 1 from api, then insert movies into db
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             Log.d(TAG, "viewModel init: getting movies from api")
             getAllMovies()
         }
@@ -82,7 +78,7 @@ class TrendingMoviesViewModel @Inject constructor(
         // listen for network changes,
         // when we are in a connected state, we get list for the next page
         // TODO: get movies for the next page only when we are at the bottom of the recycler view
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             networkStateMonitor.networkStateFlow.collect { state ->
                 Log.d(TAG, "networkState: $state")
                 Log.d(TAG, "viewModel networkstate: getting movies from api")
