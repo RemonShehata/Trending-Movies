@@ -122,11 +122,13 @@ data class ProductionCompanyResponse(
     @Json(name = "origin_country") val originCountry: String,
 )
 
+@Suppress("ConstructorParameterNaming")
 data class ProductionCountryResponse(
     @Json(name = "iso_3166_1") val iso_3166_1: String,
     @Json(name = "name") val name: String,
 )
 
+@Suppress("ConstructorParameterNaming")
 data class SpokenLanguageResponse(
     @Json(name = "iso_639_1") val iso_639_1: String,
     @Json(name = "name") val name: String,

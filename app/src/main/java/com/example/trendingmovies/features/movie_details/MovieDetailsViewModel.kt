@@ -47,7 +47,7 @@ class MovieDetailsViewModel @Inject constructor(
 
 
     // TODO: DRY
-
+    @Suppress("SwallowedException", "TooGenericExceptionCaught")
     private suspend fun networkCallWithExceptionHandling(call: suspend () -> Unit) {
         try {
             call.invoke()

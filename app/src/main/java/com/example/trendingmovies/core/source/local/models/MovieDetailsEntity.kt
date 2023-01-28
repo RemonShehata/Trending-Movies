@@ -38,6 +38,7 @@ data class Genre(
     val name: String,
 )
 
+@Suppress("ConstructorParameterNaming")
 data class SpokenLanguage(
     val iso_639_1: String,
     val name: String,
@@ -59,6 +60,7 @@ data class ProductionCompany(
     val originCountry: String,
 )
 
+@Suppress("ConstructorParameterNaming")
 data class ProductionCountry(
     val iso_3166_1: String,
     val name: String,

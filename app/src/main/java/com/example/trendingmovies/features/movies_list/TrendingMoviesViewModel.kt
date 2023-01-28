@@ -113,6 +113,7 @@ class TrendingMoviesViewModel @Inject constructor(
         networkCallWithExceptionHandling { trendingMoviesRepo.getAllMoviesSync() }
     }
 
+    @Suppress("SwallowedException", "TooGenericExceptionCaught")
     private suspend fun networkCallWithExceptionHandling(call: suspend () -> Unit) {
         try {
             call.invoke()

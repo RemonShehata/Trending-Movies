@@ -107,6 +107,7 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
+    @Suppress("MagicNumber")
     private fun renderDataOnUI(movie: MovieDetailsDto) {
         binding.movieTitletextView.text = movie.title
         binding.overviewTextView.text = movie.overview
