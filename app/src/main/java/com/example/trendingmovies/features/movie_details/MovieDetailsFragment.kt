@@ -6,20 +6,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.trendingmovies.core.models.ErrorType
+import com.example.trendingmovies.BuildConfig
 import com.example.trendingmovies.R
-import com.example.trendingmovies.core.models.State
-import com.example.trendingmovies.base.TAG
+import com.example.trendingmovies.core.models.ErrorType
 import com.example.trendingmovies.core.models.MovieDetailsDto
+import com.example.trendingmovies.core.models.State
 import com.example.trendingmovies.core.source.local.models.Status
 import com.example.trendingmovies.databinding.FragmentMovieDetailsBinding
 import com.example.trendingmovies.di.MoviesGlideModule
+import com.example.trendingmovies.utils.gone
+import com.example.trendingmovies.utils.showToast
+import com.example.trendingmovies.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.*
@@ -53,42 +55,50 @@ class MovieDetailsFragment : Fragment() {
             movieDetailsLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is State.Error -> {
-                        binding.progressBar.visibility = View.GONE
-                        binding.dataViewGroup.visibility = View.GONE
+                        binding.progressBar.gone()
+                        binding.dataViewGroup.gone()
 
                         when (result.errorType) {
                             ErrorType.NoInternet -> {
-                                binding.noInternet.root.visibility = View.VISIBLE
+                                binding.noInternet.root.visible()
 
                             }
 
-                            ErrorType.NoInternetForNextPage -> {
-                                TODO()
+                            ErrorType.NoInternetForNextPage, ErrorType.ReachedEndOfList -> {
+                                // this should never happen in this screen.
+                                Log.wtf(TAG, "error: ${result.errorType}")
+                                throw IllegalStateException("Developer error!")
                             }
 
-                            ErrorType.ReachedEndOfList -> TODO()
                             is ErrorType.UnknownError -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Unknown error!",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                showToast("Unknown error!")
+                            }
+
+                            is ErrorType.RemoteResponseParsingError, ErrorType.ResourceNotFound,
+                            ErrorType.ResourceNotFound, is ErrorType.ServerError -> {
+                                Log.e(TAG, "Error: ${result.errorType}")
+                                showToast("An error has occurred! check the logs.")
+                            }
+
+                            ErrorType.UnAuthorized -> {
+                                Log.e(TAG, "Error: ${result.errorType}")
+                                Log.e(TAG, "API Key: ${BuildConfig.TMDB_API_KEY}")
+                                showToast("API key is wrong or invalid!")
                             }
                         }
                     }
 
                     State.Loading -> {
                         Log.d(TAG, "onViewCreated: loading")
-                        binding.noInternet.root.visibility = View.GONE
-                        binding.progressBar.visibility = View.VISIBLE
-                        binding.dataViewGroup.visibility = View.GONE
+                        binding.noInternet.root.gone()
+                        binding.progressBar.visible()
+                        binding.dataViewGroup.gone()
                     }
 
                     is State.Success -> {
-                        binding.noInternet.root.visibility = View.GONE
-                        binding.dataViewGroup.visibility = View.VISIBLE
-                        binding.progressBar.visibility = View.GONE
+                        binding.noInternet.root.gone()
+                        binding.dataViewGroup.visible()
+                        binding.progressBar.gone()
                         renderDataOnUI(result.data)
                     }
                 }
@@ -143,6 +153,10 @@ class MovieDetailsFragment : Fragment() {
             .centerCrop()
             .placeholder(R.drawable.placeholder_loading)
             .into(binding.moviePosterImageView)
+    }
+
+    companion object {
+        private const val TAG = "MovieDetailsFragment"
     }
 
 }
