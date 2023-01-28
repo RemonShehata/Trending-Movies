@@ -22,7 +22,7 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
 - Architecture
     - Multi-module design for the app.
     - MVVM Architecture (View - ViewModel - Model)
-    - Repository pattern (NetworkBoundResource)
+    - Repository pattern.
     - Clean Architecture approach.
 - [Gradle Groovy](https://docs.gradle.org/current/userguide/groovy_plugin.html)
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - Construct the REST APIs.
@@ -31,3 +31,9 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
 - [Detekt](https://github.com/detekt/detekt)- A static code analysis tool for the Kotlin programming language. Visit the project website for installation guides, rule descriptions, configuration options and more.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
 - [CI/CD with github Actions](https://docs.github.com/en/actions) - Automate, customize, and execute your software development workflows.
+
+## Handled scenarios:
+- This application is built with Database first approach in mind.
+    - We get the data from the remote server then we save it in the Database
+    - Then we listen for database updates, whenever there is an update in the Database, the UI is updated.
+    - This approach allows us to have a single source of truth for data while having a caching mechanism.
