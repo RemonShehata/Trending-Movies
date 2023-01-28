@@ -4,7 +4,10 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs'
+    id 'jacoco'
 }
+
+apply from: '../jacoco.gradle'
 
 android {
     namespace 'com.example.trendingmovies'
