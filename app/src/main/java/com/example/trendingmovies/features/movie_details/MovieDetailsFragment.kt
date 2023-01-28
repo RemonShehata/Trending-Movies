@@ -52,56 +52,57 @@ class MovieDetailsFragment : Fragment() {
         with(movieDetailsViewModel) {
             getMovieDetails(args.movieId)
 
-            movieDetailsLiveData.observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is State.Error -> {
-                        binding.progressBar.gone()
-                        binding.dataViewGroup.gone()
+            movieDetailsLiveData.observe(viewLifecycleOwner, ::onMovieDetailsData)
+        }
+    }
 
-                        when (result.errorType) {
-                            ErrorType.NoInternet -> {
-                                binding.noInternet.root.visible()
+    private fun onMovieDetailsData(result: State<MovieDetailsDto>){
+        when (result) {
+            is State.Error -> {
+                binding.progressBar.gone()
+                binding.dataViewGroup.gone()
 
-                            }
-
-                            ErrorType.NoInternetForNextPage, ErrorType.ReachedEndOfList -> {
-                                // this should never happen in this screen.
-                                Log.wtf(TAG, "error: ${result.errorType}")
-                                throw IllegalStateException("Developer error!")
-                            }
-
-                            is ErrorType.UnknownError -> {
-                                showToast("Unknown error!")
-                            }
-
-                            is ErrorType.RemoteResponseParsingError, ErrorType.ResourceNotFound,
-                            ErrorType.ResourceNotFound, is ErrorType.ServerError -> {
-                                Log.e(TAG, "Error: ${result.errorType}")
-                                showToast("An error has occurred! check the logs.")
-                            }
-
-                            ErrorType.UnAuthorized -> {
-                                Log.e(TAG, "Error: ${result.errorType}")
-                                Log.e(TAG, "API Key: ${BuildConfig.TMDB_API_KEY}")
-                                showToast("API key is wrong or invalid!")
-                            }
-                        }
+                when (result.errorType) {
+                    ErrorType.NoInternet -> {
+                        binding.noInternet.root.visible()
                     }
 
-                    State.Loading -> {
-                        Log.d(TAG, "onViewCreated: loading")
-                        binding.noInternet.root.gone()
-                        binding.progressBar.visible()
-                        binding.dataViewGroup.gone()
+                    ErrorType.NoInternetForNextPage, ErrorType.ReachedEndOfList -> {
+                        // this should never happen in this screen.
+                        Log.wtf(TAG, "error: ${result.errorType}")
+                        throw IllegalStateException("Developer error!")
                     }
 
-                    is State.Success -> {
-                        binding.noInternet.root.gone()
-                        binding.dataViewGroup.visible()
-                        binding.progressBar.gone()
-                        renderDataOnUI(result.data)
+                    is ErrorType.UnknownError -> {
+                        showToast("Unknown error!")
+                    }
+
+                    is ErrorType.RemoteResponseParsingError, ErrorType.ResourceNotFound,
+                    ErrorType.ResourceNotFound, is ErrorType.ServerError -> {
+                        Log.e(TAG, "Error: ${result.errorType}")
+                        showToast("An error has occurred! check the logs.")
+                    }
+
+                    ErrorType.UnAuthorized -> {
+                        Log.e(TAG, "Error: ${result.errorType}")
+                        Log.e(TAG, "API Key: ${BuildConfig.TMDB_API_KEY}")
+                        showToast("API key is wrong or invalid!")
                     }
                 }
+            }
+
+            State.Loading -> {
+                Log.d(TAG, "onViewCreated: loading")
+                binding.noInternet.root.gone()
+                binding.progressBar.visible()
+                binding.dataViewGroup.gone()
+            }
+
+            is State.Success -> {
+                binding.noInternet.root.gone()
+                binding.dataViewGroup.visible()
+                binding.progressBar.gone()
+                renderDataOnUI(result.data)
             }
         }
     }
