@@ -1,10 +1,9 @@
 package com.example.trendingmovies.core.source.repos
 
 import android.util.Log
-import com.example.trendingmovies.base.TAG
 import com.example.trendingmovies.core.source.local.TrendingMoviesDao
-import com.example.trendingmovies.core.source.local.models.TrendingMoviesEntity
 import com.example.trendingmovies.core.source.local.TrendingMoviesPageDao
+import com.example.trendingmovies.core.source.local.models.TrendingMoviesEntity
 import com.example.trendingmovies.core.source.remote.MoviesRemoteDataSource
 import com.example.trendingmovies.utils.toTrendingMoviesEntityList
 import com.example.trendingmovies.utils.toTrendingMoviesPageEntity
@@ -21,7 +20,7 @@ class TrendingMoviesRepository @Inject constructor(
 
     override suspend fun getAllMoviesSync(){
         if (trendingMoviesDao.getAllMoviesSync().isEmpty()){
-            val result = moviesRemoteDataSource.getTrendingMovies() // remove bang
+            val result = moviesRemoteDataSource.getTrendingMovies()
             result?.let { trendingMoviesDao.insertMovies(it.toTrendingMoviesEntityList()) }
             result?.let { trendingMoviesPageDao.insertPage(it.toTrendingMoviesPageEntity()) }
         }
@@ -40,24 +39,25 @@ class TrendingMoviesRepository @Inject constructor(
             // the previous
         }
 
-        var currentPage = pageData.currentPage ?: 1
-        Log.d(TAG, "getMoviesForPage: before")
-        Log.d(TAG, "getMoviesForPage: currentPage: $currentPage")
-        Log.d(TAG, "getMoviesForPage: totalPages: ${pageData.totalPages}")
-        Log.d(TAG, "getMoviesForPage:============")
+        var currentPage = pageData.currentPage
+
         if (pageData.totalPages != null && currentPage < pageData.totalPages) {
             // we didn't reach the end yet, get the next page
+            Log.d(TAG, "getting data for page: ${++currentPage}")
             val result = moviesRemoteDataSource.getTrendingMovies(page = ++currentPage)
-            Log.d(TAG, "getMoviesForPage: after")
-            Log.d(TAG, "getMoviesForPage: currentPage: $currentPage")
-            Log.d(TAG, "getMoviesForPage: totalPages: ${pageData.totalPages}")
 
             result?.toTrendingMoviesEntityList()?.let { trendingMoviesDao.insertMovies(it) }
-            Log.d(TAG, "getMoviesForPage: ${result?.page}")
+
             result?.toTrendingMoviesPageEntity()?.let { trendingMoviesPageDao.insertPage(it) }
-            Log.d(TAG, "getMoviesForPage: ${result?.toTrendingMoviesPageEntity()}")
+
         } else {
-            Log.d(TAG, "getMoviesForPage: inside else")
+            Log.w(TAG, "can not get movies data for next page. " +
+                    "total pages: ${pageData.totalPages} " +
+                    "current page: $currentPage")
         }
+    }
+
+    companion object{
+        private const val TAG = "TrendingMoviesRepository"
     }
 }

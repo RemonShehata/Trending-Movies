@@ -77,7 +77,6 @@ class TrendingMoviesViewModel @Inject constructor(
 
         // listen for network changes,
         // when we are in a connected state, we get list for the next page
-        // TODO: get movies for the next page only when we are at the bottom of the recycler view
         viewModelScope.launch {
             networkStateMonitor.networkStateFlow.collect { state ->
                 Log.d(TAG, "networkState: $state")
