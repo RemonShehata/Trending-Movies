@@ -22,7 +22,6 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
     - ViewModel - UI related data holder, lifecycle aware.
     - Room Persistence - construct a database using the abstract layer.
 - Architecture
-    - Multi-module design for the app.
     - MVVM Architecture (View - ViewModel - Model)
     - Repository pattern.
     - Clean Architecture approach.
@@ -39,3 +38,9 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
     - We get the data from the remote server then we save it in the Database
     - Then we listen for database updates, whenever there is an update in the Database, the UI is updated.
     - This approach allows us to have a single source of truth for data while having a caching mechanism.
+- Offline:
+    - Since we always get the data from the DB, we will always show data even if we have no internet connectivity.
+    - Whenever we are displaying an old data, we show ui to indicate that the data displayed is cached.
+    - Once data connectivity is back, we refresh the data automatically without user interaction.
+    - When we open the app without internet connection for the first time, we show UI indicating that we don't have internet.
+    - When internet connectivity is lost while trying to get data for the next page, we still show the old data while showing a UI that we don't have internet to get next page data.
