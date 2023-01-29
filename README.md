@@ -1,5 +1,7 @@
 # Trending-Movies
 
+[![Android Build & Unit Test](https://github.com/RemonShehata/Trending-Movies/actions/workflows/android_build&unit_test.yml/badge.svg)](https://github.com/RemonShehata/Trending-Movies/actions/workflows/android_build&unit_test.yml)
+
 <p align="center">
 Trending Movies app is a small demo application to demonstrate modern Android application tech-stacks with MVVM architecture, with emphasize on Unit & UI testing.
 </p>
