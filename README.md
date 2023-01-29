@@ -20,8 +20,7 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
 - [StateFlow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/index.html)
-- [Koin](https://insert-koin.io) for dependency injection.
-- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) is a dependency injection library for Android, it can be viewed in a different branch [here](https://github.com/AhmedVargos/Valorant-Agents/blob/using_hilt_for_di/README.md)
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) is a dependency injection library for Android.
 - [JetPack](https://developer.android.com/jetpack)
     - LiveData - Notify domain layer data to views.
     - Lifecycle - Dispose of observing data when lifecycle state changes.
@@ -30,7 +29,7 @@ Trending Movies app is a small demo application to demonstrate modern Android ap
     - ViewModel - UI related data holder, lifecycle aware.
     - Room Persistence - construct a database using the abstract layer.
 - Architecture
-    - MVVM Architecture (View - ViewModel - Model)
+    - MVVM Architecture (Model - View - ViewModel)
     - Repository pattern.
     - Clean Architecture approach.
 - [Gradle Groovy](https://docs.gradle.org/current/userguide/groovy_plugin.html)
