@@ -2,9 +2,17 @@
 
 [![Android Build & Unit Test](https://github.com/RemonShehata/Trending-Movies/actions/workflows/android_build&unit_test.yml/badge.svg)](https://github.com/RemonShehata/Trending-Movies/actions/workflows/android_build&unit_test.yml)
 
+
 <p align="center">
 Trending Movies app is a small demo application to demonstrate modern Android application tech-stacks with MVVM architecture, with emphasize on Unit & UI testing.
 </p>
+
+## Screenshots:
+![trending_movies_home](https://user-images.githubusercontent.com/47400411/215326350-c0b042f4-f5bc-4850-80c4-d4396d89e278.png)
+&nbsp; &nbsp;
+![trending_movies_details](https://user-images.githubusercontent.com/47400411/215326355-47c61623-4dbd-4235-b39b-52de0da2e700.png)
+
+
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 28
